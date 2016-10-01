@@ -15,6 +15,7 @@ const clipers = async (ctx, next) => {
 const signup = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.signUp(email, password.toString());
+  ctx.session.userId = user.objectId;
   ctx.body = {
     data: user,
     success: true
@@ -24,6 +25,7 @@ const signup = async (ctx, next) => {
 const login = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.logIn(email, password);
+  ctx.session.userId = user.objectId;
   ctx.body = {
     data: user,
     success: true

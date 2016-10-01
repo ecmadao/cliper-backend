@@ -1,8 +1,7 @@
 export const checkIfLogin = (redirect = null) => {
   return async (ctx, next) => {
     const userId = ctx.session.userId;
-    const token = ctx.session.token;
-    if (!userId || !token) {
+    if (!userId) {
       ctx.body = {
         success: false,
         message: '请先登录',
@@ -17,8 +16,7 @@ export const checkIfLogin = (redirect = null) => {
 export const checkIfNotLogin = (redirect = null) => {
   return async (ctx, next) => {
     const userId = ctx.session.userId;
-    const token = ctx.session.token;
-    if (userId && token) {
+    if (userId) {
       ctx.body = {
         success: false,
         message: '请勿重复登录',

@@ -17,8 +17,6 @@ const getCliper = async (ctx, next) => {
 const add = async (ctx, next) => {
   const requestData = ctx.request.body;
   const cliper = requestData.cliper;
-  console.log('get cliper in backend');
-  console.log(cliper);
   const result = await Cliper.addCliper(cliper);
   ctx.body = {
     success: true,

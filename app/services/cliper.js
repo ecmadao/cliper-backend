@@ -9,8 +9,6 @@ AV.init({ appId, appKey });
 
 class Cliper {
   constructor() {
-    const CliperStorage = AV.Object.extend(appCliperBD);
-    this.cliperStorage = new CliperStorage();
   }
 
   async getClipers(userId) {
@@ -18,13 +16,13 @@ class Cliper {
   }
 
   async addCliper(cliper) {
-    const newCliper = {
-      content: cliper.text,
-      url: cliper.url,
-      title: cliper.title,
-      userId: cliper.userId
-    };
-    return await this.cliperStorage.save(newCliper);
+    const CliperStorage = AV.Object.extend(appCliperBD);
+    const cliperStorage = new CliperStorage();
+    cliperStorage.set('content', cliper.text);
+    cliperStorage.set('url', cliper.url);
+    cliperStorage.set('title', cliper.title);
+    cliperStorage.set('userId', cliper.userId);
+    return await cliperStorage.save();
   }
 
   async getCliper(cliperId) {

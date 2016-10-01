@@ -14,9 +14,7 @@ const clipers = async (ctx, next) => {
 
 const signup = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
-  console.log('email: ', email);
-  console.log('password: ', password);
-  const user = await User.signUp(email, password);
+  const user = await User.signUp(email, password.toString());
   console.log('signup user is');
   console.log(user);
   ctx.body = {
@@ -39,12 +37,11 @@ const login = async (ctx, next) => {
 const logout = async (ctx, next) => {
   await User.logout();
   ctx.session.userId = null;
+  ctx.body = {
+    data: null,
+    success: true
+  }
 };
-
-// const currentUser = await User.currentUser();
-// ctx.body = {
-//   data: currentUser
-// };
 
 export default {
   login,

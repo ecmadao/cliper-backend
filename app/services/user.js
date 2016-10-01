@@ -9,8 +9,6 @@ AV.init({ appId, appKey });
 
 class User {
   constructor() {
-    // const UserStorage = AV.Object.extend(appUserDB);
-    // this.userStorage = new UserStorage();
   }
 
   async signUp(email, password) {

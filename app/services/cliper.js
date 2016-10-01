@@ -13,15 +13,21 @@ class Cliper {
     this.cliperStorage = new CliperStorage();
   }
 
-  async getClipers() {
+  async getClipers(userId) {
     return [];
   }
 
-  async addCliper() {
-    return {};
+  async addCliper(cliper) {
+    const newCliper = {
+      content: cliper.text,
+      url: cliper.url,
+      title: cliper.title,
+      userId: cliper.userId
+    };
+    return await this.cliperStorage.save(newCliper);
   }
 
-  async getCliper() {
+  async getCliper(cliperId) {
     return {};
   }
 }

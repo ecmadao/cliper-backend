@@ -15,8 +15,6 @@ const clipers = async (ctx, next) => {
 const signup = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.signUp(email, password.toString());
-  console.log('signup user is');
-  console.log(user);
   ctx.body = {
     data: user,
     success: true
@@ -26,8 +24,6 @@ const signup = async (ctx, next) => {
 const login = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.logIn(email, password);
-  console.log('signup user is');
-  console.log(user);
   ctx.body = {
     data: user,
     success: true

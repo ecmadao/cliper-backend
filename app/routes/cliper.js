@@ -7,7 +7,9 @@ const router = koaRouter({
 });
 
 router.get('/all', checkIfLogin(), cliper.all);
-router.get('/:id', checkIfLogin(), cliper.cliper);
+router.post('/new', checkIfLogin(), cliper.add);
+router.get('/:id', checkIfLogin(), cliper.getCliper);
+router.delete('/:id', checkIfLogin(), cliper.deleteCliper);
 router.get('/', checkIfLogin(), cliper.all);
 
 module.exports = router;

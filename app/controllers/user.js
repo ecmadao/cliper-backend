@@ -1,4 +1,5 @@
 import User from '../services/user';
+import SendCloud from '../services/sendcloud';
 
 const getUserInfo = (ctx) => {
   const requestData = ctx.request.body;
@@ -20,6 +21,7 @@ const signup = async (ctx, next) => {
     data: user,
     success: true
   }
+  SendCloud.sendRegisterEmail(email);
 };
 
 const login = async (ctx, next) => {

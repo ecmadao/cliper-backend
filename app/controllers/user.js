@@ -40,9 +40,19 @@ const logout = async (ctx, next) => {
   }
 };
 
+const checkEmail = async (ctx, next) => {
+  const requestData = ctx.request.body;
+  const email = requestData.email;
+  console.log('check this email: ', email);
+  ctx.body = {
+    success: true
+  };
+};
+
 export default {
   login,
   logout,
   signup,
-  home
+  home,
+  checkEmail
 }

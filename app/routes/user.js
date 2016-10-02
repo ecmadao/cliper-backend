@@ -9,6 +9,7 @@ const router = koaRouter({
 router.post('/login', checkIfNotLogin(), user.login);
 router.post('/signup', checkIfNotLogin(), user.signup);
 router.get('/logout', user.logout);
+router.post('/check_email', checkIfNotLogin(), user.checkEmail);
 router.get('/', checkIfLogin(), user.home);
 
 module.exports = router;

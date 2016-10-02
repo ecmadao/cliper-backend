@@ -14,7 +14,8 @@ import {
   getDefaultState
 } from '../ConstValue';
 import {
-  validateEqual
+  validateEqual,
+  validatePassword
 } from '../../../utils/validator';
 import LoginForm from './LoginForm';
 import LoadingModal from '../../LoadingModal/index';
@@ -55,10 +56,13 @@ class Login extends React.Component {
         },
         success: (data) => {
           let stepTwo = REGISTER_STEP;
+          let submitType = 'register';
           if (data.success) {
             stepTwo = LOGIN_STEP;
+            submitType = 'login'
           }
           this.setState({
+            submitType,
             steps: [STEP_ONE, stepTwo]
           });
           NProgress.done();
@@ -114,6 +118,10 @@ class Login extends React.Component {
   validateCanSubmit() {
     const {loginInfo, submitType} = this.state;
     const {password, repeatPassword} = loginInfo;
+    if (!validatePassword(password)) {
+      message.error('请填写正确的密码');
+      return false;
+    }
     if (submitType === 'register' && !validateEqual(password, repeatPassword)) {
       message.error('两次输入不相等');
       return false;

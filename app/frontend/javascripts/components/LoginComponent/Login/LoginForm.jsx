@@ -69,7 +69,10 @@ class LoginForm extends React.Component {
         handleStepChange
       } = this.props;
       if (!hasNextStep) {
-        this.handleSubmit();
+        if (!this.validateCanStepChange()) {
+          return;
+        }
+        handleSubmit();
         return;
       }
       if (inputRef === 'email') {

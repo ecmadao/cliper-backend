@@ -12,6 +12,19 @@ class LoginForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentDidMount () {
+    this.componentAnimation();
+    $($('.login_input')[0]).focus();
+  }
+
+  componentAnimation () {
+    let $introContainer = $('.loginform_container');
+    $introContainer.removeClass('animation');
+    setTimeout(() => {
+      $introContainer.addClass('animation');
+    }, 500);
+  }
+
   validateCanStepChange() {
     const {inputs, loginInfo} = this.props;
     const validateResults = inputs.map((loginInput) => {
@@ -41,17 +54,25 @@ class LoginForm extends React.Component {
     }
   }
 
+  handleStepChange(step) {
+    const {handleStepChange} = this.props;
+    this.componentAnimation();
+    setTimeout(() => {
+      handleStepChange && handleStepChange(step);
+    }, 400);
+  }
+
   handleNextStep() {
     const result = this.validateCanStepChange();
     if (result) {
-      const {step, handleStepChange} = this.props;
-      handleStepChange && handleStepChange(step + 1);
+      const {step} = this.props;
+      this.handleStepChange(step + 1);
     }
   }
 
   handlePreStep() {
-    const {step, handleStepChange} = this.props;
-    handleStepChange && handleStepChange(step - 1);
+    const {step} = this.props;
+    this.handleStepChange(step - 1);
   }
 
   handleKeyDown(e, inputRef) {
@@ -80,7 +101,7 @@ class LoginForm extends React.Component {
           return;
         }
         checkEmailExist().then(() => {
-          handleStepChange && handleStepChange(step + 1);
+          this.handleStepChange(step + 1);
         });
         return;
       }

@@ -14,6 +14,7 @@ const signup = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.signUp(email, password.toString());
   ctx.session.userId = user.objectId;
+  ctx.session.user = user;
   ctx.body = {
     data: user,
     success: true,
@@ -26,6 +27,7 @@ const login = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.logIn(email, password);
   ctx.session.userId = user.objectId;
+  ctx.session.user = user;
   ctx.body = {
     data: user,
     success: true,
@@ -36,6 +38,7 @@ const login = async (ctx, next) => {
 const logout = async (ctx, next) => {
   await User.logout();
   ctx.session.userId = null;
+  ctx.session.user = null;
   ctx.body = {
     data: null,
     success: true

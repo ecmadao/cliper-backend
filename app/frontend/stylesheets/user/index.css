@@ -3,26 +3,65 @@
   height: 100%;
 }
 
-.user_header {
-  height: 300px;
+.user_header_bg {
+  height: 400px;
   width: 100%;
-  position: relative;
+  background: url('../../images/star-wars.jpg') no-repeat center;
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.user_header {
+  height: 400px;
+  width: 100%;
+  background-color: hsla(0, 0%, 34%, 0.8);
+  color: #fff;
 
   & .user_info {
     width: 30%;
     height: 100%;
     float: left;
+    position: relative;
+  }
+
+  & .user_info_wrapper {
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+
+    & .user_name {
+      font-size: 1.8em;
+    }
   }
 
   & .user_intro {
     width: 70%;
     height: 100%;
     float: left;
+    position: relative;
+  }
+
+  & .user_intro_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
   }
 
   & .user_logout {
-    position: absolute;
-    top: 50px;
-    right: 50px;
+    color: #fff;
+
+    &:hover {
+      color: #E53935;
+    }
   }
+}
+
+#user_component {
+  width: 100%;
+  min-height: 100%;
 }

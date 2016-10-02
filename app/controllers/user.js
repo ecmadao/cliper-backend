@@ -1,7 +1,8 @@
 import User from '../services/user';
 import SendCloud from '../services/sendcloud';
 import {
-  getHiddenEmail
+  getHiddenEmail,
+  checkIsEmail
 } from '../middlewares/utils';
 
 const getUserInfo = (ctx) => {
@@ -11,10 +12,12 @@ const getUserInfo = (ctx) => {
 
 const home = async (ctx, next) => {
   const user = ctx.session.user;
+  const {username, email, createdAt} = user;
+  const name = checkIsEmail(username) ? getHiddenEmail(email) : username;
   const userInfo = {
-    username: user.username,
-    email: getHiddenEmail(user.email),
-    joinedAt: user.createdAt
+    username: name,
+    email: getHiddenEmail(email),
+    joinedAt: createdAt
   };
   await ctx.render('home/user', {
     title: '个人主页',

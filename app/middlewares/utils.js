@@ -33,3 +33,5 @@ export const checkIfNotLogin = (redirect = '/user') => {
 export const getHiddenEmail = (email) => {
   return `${email.slice(0, 2)}**@**${email.slice(-3)}`;
 };
+
+export const checkIsEmail = (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);

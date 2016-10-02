@@ -12,7 +12,10 @@ class Cliper {
   }
 
   async getClipers(userId) {
-    return [];
+    const query = new AV.Query(appCliperBD);
+    query.equalTo('userId', userId);
+    query.descending('createdAt');
+    return await query.find();
   }
 
   async addCliper(cliper) {

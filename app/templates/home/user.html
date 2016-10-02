@@ -6,19 +6,25 @@
 
 {% block body %}
   <div class="user_container">
+    <div class="user_header_bg"></div>
     <div class="user_header">
       <div class="user_info">
-        {{ userInfo.username }}
+        <div class="user_info_wrapper">
+          <span class="user_name">
+            {{ userInfo.username }}
+          </span>
+          <br/><br/>
+          <a href="/user/logout" class="user_logout">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>logout
+          </a>
+        </div>
       </div>
       <div class="user_intro">
         <div class="user_intro_wrapper">
-          {{ userInfo.email }} <br/>
-          {{ userInfo.joinedAt }}
+          <!-- {{ userInfo.email }} <br/>
+          {{ userInfo.joinedAt }} -->
         </div>
       </div>
-      <a href="/user/logout" class="user_logout">
-        <i class="fa fa-sign-out" aria-hidden="true"></i>
-      </a>
     </div>
     <div id="user_component"></div>
   </div>

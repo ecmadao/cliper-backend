@@ -171,12 +171,13 @@ class LoginForm extends React.Component {
   renderInputs() {
     const {inputs, loginInfo} = this.props;
     return inputs.map((loginInput, index) => {
-      const {ref} = loginInput;
+      const {ref, placeholder, type} = loginInput;
       const value = loginInfo[ref];
       return (
         <input
           ref={ref}
           key={index}
+          type={type}
           value={value}
           onChange={() => {
             this.handleInputChange(ref);
@@ -188,7 +189,7 @@ class LoginForm extends React.Component {
           onBlur={() => {
             this.handleBlur(ref);
           }}
-          placeholder={loginInput.placeholder}
+          placeholder={placeholder}
         />
       );
     });

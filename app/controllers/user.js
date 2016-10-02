@@ -43,9 +43,9 @@ const logout = async (ctx, next) => {
 const checkEmail = async (ctx, next) => {
   const requestData = ctx.request.body;
   const email = requestData.email;
-  console.log('check this email: ', email);
+  const user = await User.getUser(email);
   ctx.body = {
-    success: true
+    success: user && user.length === 1
   };
 };
 

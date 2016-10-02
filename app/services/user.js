@@ -8,8 +8,7 @@ const appUserDB = config.get('leancloud.appUserDB');
 AV.init({ appId, appKey });
 
 class User {
-  constructor() {
-  }
+  constructor() {}
 
   async signUp(email, password) {
     const user = new AV.User();
@@ -29,6 +28,12 @@ class User {
 
   async currentUser() {
     return await AV.User.current();
+  }
+
+  async getUser(email) {
+    const query = new AV.Query('_User');
+    query.equalTo('email', email);
+    return await query.find();
   }
 }
 

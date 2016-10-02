@@ -9,7 +9,6 @@ const router = koaRouter({
 router.post('/login', checkIfNotLogin(), user.login);
 router.post('/signup', checkIfNotLogin(), user.signup);
 router.get('/logout', user.logout);
-router.get('/clipers', checkIfLogin(), user.clipers);
-router.get('/', checkIfLogin(), user.clipers);
+router.get('/', checkIfLogin(), user.home);
 
 module.exports = router;

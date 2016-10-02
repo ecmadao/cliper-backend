@@ -20,9 +20,8 @@ class SendCloud {
       "fromname": "ecmadao",
       "subject": "感谢注册Cliper",
       "resp_email_id": "true"
-    }
-    request.post(sendTemplateLink, {form: params}, (err, httpResponse, body) => {
-    });
+    };
+    request.post(sendTemplateLink, {form: params}, (err, httpResponse, body) => {});
   }
 
   combineSendParams(email, option = {}) {

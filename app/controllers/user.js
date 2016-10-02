@@ -6,11 +6,8 @@ const getUserInfo = (ctx) => {
   return [requestData.email, requestData.password];
 };
 
-const clipers = async (ctx, next) => {
-  ctx.body = {
-    data: [],
-    success: true
-  };
+const home = async (ctx, next) => {
+  ctx.body = 'home page';
 };
 
 const signup = async (ctx, next) => {
@@ -47,5 +44,5 @@ export default {
   login,
   logout,
   signup,
-  clipers
+  home
 }

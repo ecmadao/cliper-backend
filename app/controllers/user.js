@@ -1,5 +1,8 @@
 import User from '../services/user';
 import SendCloud from '../services/sendcloud';
+import {
+  getHiddenEmail
+} from '../middlewares/utils';
 
 const getUserInfo = (ctx) => {
   const requestData = ctx.request.body;
@@ -7,13 +10,22 @@ const getUserInfo = (ctx) => {
 };
 
 const home = async (ctx, next) => {
-  ctx.body = 'home page';
+  const user = ctx.session.user;
+  const userInfo = {
+    username: user.username,
+    email: getHiddenEmail(user.email),
+    joinedAt: user.createdAt
+  };
+  await ctx.render('home/user', {
+    title: '个人主页',
+    userInfo
+  });
 };
 
 const signup = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.signUp(email, password.toString());
-  ctx.session.userId = user.objectId;
+  ctx.session.userId = user.id;
   ctx.session.user = user;
   ctx.body = {
     data: user,
@@ -26,7 +38,7 @@ const signup = async (ctx, next) => {
 const login = async (ctx, next) => {
   const [email, password] = getUserInfo(ctx);
   const user = await User.logIn(email, password);
-  ctx.session.userId = user.objectId;
+  ctx.session.userId = user.id;
   ctx.session.user = user;
   ctx.body = {
     data: user,
@@ -39,10 +51,7 @@ const logout = async (ctx, next) => {
   await User.logout();
   ctx.session.userId = null;
   ctx.session.user = null;
-  ctx.body = {
-    data: null,
-    success: true
-  }
+  ctx.redirect('/login');
 };
 
 const checkEmail = async (ctx, next) => {

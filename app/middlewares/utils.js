@@ -29,3 +29,7 @@ export const checkIfNotLogin = (redirect = '/user') => {
     await next();
   }
 };
+
+export const getHiddenEmail = (email) => {
+  return `${email.slice(0, 2)}**@**${email.slice(-3)}`;
+};

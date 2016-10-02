@@ -7,10 +7,24 @@
     "start_app": "./node_modules/.bin/nodemon index.js",
     "production": "export NODE_ENV=production && npm run start_app",
     "start": "npm run production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch_dev": "./node_modules/webpack/bin/webpack.js --config config/webpack/webpack.dev.js -p --watch",
+    "build_dev": "./node_modules/webpack/bin/webpack.js --config config/webpack/webpack.dev.js -p",
+    "build_pro": "./node_modules/webpack/bin/webpack.js --config config/webpack/webpack.production.js -p",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "add_assets": "export NODE_ENV=production && npm run build_pro && git add public/assets -f && git commit -m 'assets'",
+    "deploy": "npm run add_assets && git push heroku"
+  },
+  "engines": {
+    "node": "5.9.1"
   },
   "author": "ecmadao",
   "license": "ISC",
+  "keywords": [
+    "koa2",
+    "nodejs",
+    "react",
+    "webpack"
+  ],
   "dependencies": {
     "babel-core": "^6.14.0",
     "babel-plugin-transform-async-to-generator": "^6.8.0",
@@ -33,6 +47,35 @@
     "koa-session": "^3.3.1",
     "leancloud-storage": "^1.5.0",
     "nodemon": "^1.10.2",
-    "request": "^2.75.0"
+    "request": "^2.75.0",
+    "classnames": "^2.2.5",
+    "jquery": "^3.1.1",
+    "koa-static": "^2.0.0",
+    "koa-views": "^5.1.2",
+    "nprogress": "^0.2.0",
+    "nunjucks": "^2.5.2",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.4.1",
+    "babel-loader": "^6.2.5",
+    "babel-preset-react": "^6.11.1",
+    "clean-webpack-plugin": "^0.1.10",
+    "css-loader": "^0.23.1",
+    "es6-promise": "^3.2.1",
+    "exports-loader": "^0.6.3",
+    "expose-loader": "^0.7.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "object-assign": "^4.1.0",
+    "postcss-cssnext": "^2.8.0",
+    "postcss-import": "^8.1.2",
+    "postcss-loader": "^0.9.1",
+    "postcss-reporter": "^1.4.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-manifest-plugin": "^1.0.1"
   }
 }

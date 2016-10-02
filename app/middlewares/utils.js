@@ -1,28 +1,30 @@
-export const checkIfLogin = (redirect = null) => {
+export const checkIfLogin = (redirect = '/login') => {
   return async (ctx, next) => {
     const userId = ctx.session.userId;
     if (!userId) {
-      ctx.body = {
-        success: false,
-        message: '请先登录',
-        data: null
-      }
-      return;
+      return ctx.redirect(redirect);
+      // ctx.body = {
+      //   success: false,
+      //   message: '请先登录',
+      //   data: null
+      // }
+      // return;
     }
     await next();
   }
 };
 
-export const checkIfNotLogin = (redirect = null) => {
+export const checkIfNotLogin = (redirect = '/user') => {
   return async (ctx, next) => {
     const userId = ctx.session.userId;
     if (userId) {
-      ctx.body = {
-        success: false,
-        message: '请勿重复登录',
-        data: null
-      }
-      return;
+      return ctx.redirect(redirect);
+      // ctx.body = {
+      //   success: false,
+      //   message: '请勿重复登录',
+      //   data: null
+      // }
+      // return;
     }
     await next();
   }

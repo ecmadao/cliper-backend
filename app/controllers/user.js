@@ -6,11 +6,8 @@ const getUserInfo = (ctx) => {
   return [requestData.email, requestData.password];
 };
 
-const clipers = async (ctx, next) => {
-  ctx.body = {
-    data: [],
-    success: true
-  };
+const home = async (ctx, next) => {
+  ctx.body = 'home page';
 };
 
 const signup = async (ctx, next) => {
@@ -43,9 +40,19 @@ const logout = async (ctx, next) => {
   }
 };
 
+const checkEmail = async (ctx, next) => {
+  const requestData = ctx.request.body;
+  const email = requestData.email;
+  const user = await User.getUser(email);
+  ctx.body = {
+    success: user && user.length === 1
+  };
+};
+
 export default {
   login,
   logout,
   signup,
-  clipers
+  home,
+  checkEmail
 }

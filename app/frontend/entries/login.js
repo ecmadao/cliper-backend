@@ -1,0 +1,1 @@
+require('../javascripts/pages/login');

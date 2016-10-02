@@ -13,7 +13,9 @@ const csrf = async (ctx, next) => {
 };
 
 const login = async (ctx, next) => {
-  ctx.body = 'login page';
+  await ctx.render('home/login', {
+    title: 'login page'
+  });
 };
 
 export default {

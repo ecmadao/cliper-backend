@@ -16,7 +16,8 @@ const signup = async (ctx, next) => {
   ctx.session.userId = user.objectId;
   ctx.body = {
     data: user,
-    success: true
+    success: true,
+    url: '/user'
   }
   SendCloud.sendRegisterEmail(email);
 };
@@ -27,7 +28,8 @@ const login = async (ctx, next) => {
   ctx.session.userId = user.objectId;
   ctx.body = {
     data: user,
-    success: true
+    success: true,
+    url: '/user'
   }
 };
 
@@ -44,8 +46,11 @@ const checkEmail = async (ctx, next) => {
   const requestData = ctx.request.body;
   const email = requestData.email;
   const user = await User.getUser(email);
+  const hasUser = user && user.length === 1;
+  const message = hasUser ? '存在账户，请登录' : '账户不存在，欢迎注册';
   ctx.body = {
-    success: user && user.length === 1
+    success: hasUser,
+    message
   };
 };
 

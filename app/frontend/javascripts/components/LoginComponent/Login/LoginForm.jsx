@@ -1,4 +1,6 @@
 import React from 'react';
+import Message from '../../../common/message';
+const message = new Message();
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -17,8 +19,7 @@ class LoginForm extends React.Component {
       const value = loginInfo[ref];
       const result = validator(value);
       if (!result.result) {
-        // console.log(result.message);
-        alert(result.message);
+        message.error(result.message);
       }
       return result;
     });
@@ -95,7 +96,11 @@ class LoginForm extends React.Component {
         <div className="steps_wrapper">
           <div
             onClick={this.handleNextStep}
-            className="button button_mini step_button">下一步</div>
+            className="button button_mini step_button">
+            <i
+              className="fa fa-arrow-right step_action"
+              aria-hidden="true"></i>
+          </div>
         </div>
       );
     }
@@ -104,10 +109,18 @@ class LoginForm extends React.Component {
         <div className="steps_wrapper">
           <div
             onClick={this.handlePreStep}
-            className="button grey button_mini step_button">上一步</div>
+            className="button grey button_mini step_button">
+            <i
+              className="fa fa-arrow-left step_action"
+              aria-hidden="true"></i>
+          </div>
           <div
             onClick={handleSubmit}
-            className="button button_mini step_button">提交</div>
+            className="button button_mini step_button">
+            <i
+              className="fa fa-space-shuttle step_action"
+              aria-hidden="true"></i>
+            </div>
         </div>
       );
     }
@@ -115,10 +128,18 @@ class LoginForm extends React.Component {
       <div className="steps_wrapper">
         <div
           onClick={this.handlePreStep}
-          className="button grey button_mini step_button">上一步</div>
+          className="button grey button_mini step_button">
+          <i
+            className="fa fa-arrow-left step_action"
+            aria-hidden="true"></i>
+        </div>
         <div
           onClick={this.handleNextStep}
-          className="button button_mini step_button">下一步</div>
+          className="button button_mini step_button">
+          <i
+            className="fa fa-arrow-right step_action"
+            aria-hidden="true"></i>
+          </div>
       </div>
     )
   }
@@ -151,7 +172,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="inputs_container">
+      <div className="loginform_container">
         {this.renderInputs()}
         {this.renderStep()}
       </div>

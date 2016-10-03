@@ -23,7 +23,8 @@ export const fetchClipers = () => {
       method: 'get',
       success: (data) => {
         if (data.success) {
-          dispatch(resetClipers(data.data));
+          dispatch(formatClipers(data.data));
+          // dispatch(resetClipers(data.data));
         } else {
           message.error('Ops..some error happened');
         }
@@ -34,6 +35,36 @@ export const fetchClipers = () => {
         dispatch(changeLoadingStatus(false));
       }
     });
+  }
+};
+
+export const formatClipers = (clipers) => {
+  return (dispatch, getState) => {
+    let cliperObjs = [];
+    clipers.forEach((cliper) => {
+      const filterClipers = cliperObjs.filter((cliperObj) => cliperObj.url === cliper.url);
+      // const checkIfExist = cliperObjs.some((cliperObj) => cliperObj.url === cliper.url);
+      const cliperObj = {
+        content: cliper.content,
+        createdAt: cliper.createdAt,
+        tags: cliper.tags,
+        love: cliper.love,
+        id: cliper.objectId
+      };
+      if (filterClipers && filterClipers.length) {
+        let filterCliper = filterClipers[0];
+        filterCliper.contents.push(cliperObj);
+      } else {
+        const newCliper = {
+          title: cliper.title,
+          url: cliper.url,
+          contents: [cliperObj]
+        };
+        cliperObjs.push(newCliper);
+      }
+    });
+    dispatch(resetClipers(cliperObjs));
+    // console.log(cliperObjs);
   }
 };
 

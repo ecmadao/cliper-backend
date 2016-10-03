@@ -54,7 +54,8 @@ const STATE = {
   step: 0,
   steps: [STEP_ONE, STEP_TWO],
   loginInfo: {},
-  submitType: "login"
+  submitType: "login",
+  loading: true
 };
 
 export const getDefaultState = () => {

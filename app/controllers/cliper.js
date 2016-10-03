@@ -1,8 +1,10 @@
 import Cliper from '../services/cliper';
 
 const all = async (ctx, next) => {
+  const userId = ctx.session.userId;
+  const clipers = await Cliper.getClipers(userId);
   ctx.body = {
-    data: [],
+    data: clipers,
     success: true
   }
 };

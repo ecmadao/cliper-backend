@@ -1,4 +1,6 @@
 import React from 'react';
+import Message from '../../../common/message';
+const message = new Message();
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -10,6 +12,19 @@ class LoginForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentDidMount () {
+    this.componentAnimation();
+    $($('.login_input')[0]).focus();
+  }
+
+  componentAnimation () {
+    let $introContainer = $('.loginform_container');
+    $introContainer.removeClass('animation');
+    setTimeout(() => {
+      $introContainer.addClass('animation');
+    }, 500);
+  }
+
   validateCanStepChange() {
     const {inputs, loginInfo} = this.props;
     const validateResults = inputs.map((loginInput) => {
@@ -17,8 +32,7 @@ class LoginForm extends React.Component {
       const value = loginInfo[ref];
       const result = validator(value);
       if (!result.result) {
-        // console.log(result.message);
-        alert(result.message);
+        message.error(result.message);
       }
       return result;
     });
@@ -40,17 +54,25 @@ class LoginForm extends React.Component {
     }
   }
 
+  handleStepChange(step) {
+    const {handleStepChange} = this.props;
+    this.componentAnimation();
+    setTimeout(() => {
+      handleStepChange && handleStepChange(step);
+    }, 400);
+  }
+
   handleNextStep() {
     const result = this.validateCanStepChange();
     if (result) {
-      const {step, handleStepChange} = this.props;
-      handleStepChange && handleStepChange(step + 1);
+      const {step} = this.props;
+      this.handleStepChange(step + 1);
     }
   }
 
   handlePreStep() {
-    const {step, handleStepChange} = this.props;
-    handleStepChange && handleStepChange(step - 1);
+    const {step} = this.props;
+    this.handleStepChange(step - 1);
   }
 
   handleKeyDown(e, inputRef) {
@@ -68,7 +90,10 @@ class LoginForm extends React.Component {
         handleStepChange
       } = this.props;
       if (!hasNextStep) {
-        this.handleSubmit();
+        if (!this.validateCanStepChange()) {
+          return;
+        }
+        handleSubmit();
         return;
       }
       if (inputRef === 'email') {
@@ -76,7 +101,7 @@ class LoginForm extends React.Component {
           return;
         }
         checkEmailExist().then(() => {
-          handleStepChange && handleStepChange(step + 1);
+          this.handleStepChange(step + 1);
         });
         return;
       }
@@ -95,7 +120,11 @@ class LoginForm extends React.Component {
         <div className="steps_wrapper">
           <div
             onClick={this.handleNextStep}
-            className="button button_mini step_button">下一步</div>
+            className="button button_mini step_button">
+            <i
+              className="fa fa-arrow-right step_action"
+              aria-hidden="true"></i>
+          </div>
         </div>
       );
     }
@@ -104,10 +133,18 @@ class LoginForm extends React.Component {
         <div className="steps_wrapper">
           <div
             onClick={this.handlePreStep}
-            className="button grey button_mini step_button">上一步</div>
+            className="button grey button_mini step_button">
+            <i
+              className="fa fa-arrow-left step_action"
+              aria-hidden="true"></i>
+          </div>
           <div
             onClick={handleSubmit}
-            className="button button_mini step_button">提交</div>
+            className="button button_mini step_button">
+            <i
+              className="fa fa-space-shuttle step_action"
+              aria-hidden="true"></i>
+            </div>
         </div>
       );
     }
@@ -115,10 +152,18 @@ class LoginForm extends React.Component {
       <div className="steps_wrapper">
         <div
           onClick={this.handlePreStep}
-          className="button grey button_mini step_button">上一步</div>
+          className="button grey button_mini step_button">
+          <i
+            className="fa fa-arrow-left step_action"
+            aria-hidden="true"></i>
+        </div>
         <div
           onClick={this.handleNextStep}
-          className="button button_mini step_button">下一步</div>
+          className="button button_mini step_button">
+          <i
+            className="fa fa-arrow-right step_action"
+            aria-hidden="true"></i>
+          </div>
       </div>
     )
   }
@@ -126,12 +171,13 @@ class LoginForm extends React.Component {
   renderInputs() {
     const {inputs, loginInfo} = this.props;
     return inputs.map((loginInput, index) => {
-      const {ref} = loginInput;
+      const {ref, placeholder, type} = loginInput;
       const value = loginInfo[ref];
       return (
         <input
           ref={ref}
           key={index}
+          type={type}
           value={value}
           onChange={() => {
             this.handleInputChange(ref);
@@ -143,7 +189,7 @@ class LoginForm extends React.Component {
           onBlur={() => {
             this.handleBlur(ref);
           }}
-          placeholder={loginInput.placeholder}
+          placeholder={placeholder}
         />
       );
     });
@@ -151,7 +197,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="inputs_container">
+      <div className="loginform_container">
         {this.renderInputs()}
         {this.renderStep()}
       </div>

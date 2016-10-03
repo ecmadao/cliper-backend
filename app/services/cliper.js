@@ -12,7 +12,10 @@ class Cliper {
   }
 
   async getClipers(userId) {
-    return [];
+    const query = new AV.Query(appCliperBD);
+    query.equalTo('userId', userId);
+    query.descending('createdAt');
+    return await query.find();
   }
 
   async addCliper(cliper) {
@@ -22,6 +25,9 @@ class Cliper {
     cliperStorage.set('url', cliper.url);
     cliperStorage.set('title', cliper.title);
     cliperStorage.set('userId', cliper.userId);
+    cliperStorage.set('comments', []);
+    cliperStorage.set('tags', []);
+    cliperStorage.set('love', false);
     return await cliperStorage.save();
   }
 

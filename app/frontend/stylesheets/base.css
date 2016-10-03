@@ -36,10 +36,10 @@
 }
 
 .button.grey {
-  background-color: #BDC3C7;
+  background-color: #BDBDBD;
 
   &:hover {
-    background-color: #95A5A6;
+    background-color: #757575;
   }
 }
 

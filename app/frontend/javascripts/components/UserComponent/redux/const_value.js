@@ -11,5 +11,6 @@ export const DEFAULT_STATE = {
   },
   csrf: null,
   loading: true,
-  search: ''
+  search: '',
+  avtiveTab: 0
 };

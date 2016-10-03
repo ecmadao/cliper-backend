@@ -6,6 +6,15 @@ polyfill();
 import Message from '../../../common/message';
 const message = new Message();
 
+// tab
+export const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
+export const changeActiveTab = (tab) => {
+  return {
+    type: CHANGE_ACTIVE_TAB,
+    tab
+  }
+};
+
 // clipers
 export const fetchClipers = () => {
   return (dispatch, getState) => {

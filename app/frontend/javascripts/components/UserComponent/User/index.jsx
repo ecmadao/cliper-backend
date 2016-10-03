@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import LoadingModal from '../../LoadingModal/index';
+import Clipers from './Clipers';
 
 import {
   fetchClipers,
@@ -44,6 +45,7 @@ class User extends React.Component {
             className="fa fa-space-shuttle search_button"
             aria-hidden="true"></i>
         </div>
+        <Clipers />
       </div>
     )
   }

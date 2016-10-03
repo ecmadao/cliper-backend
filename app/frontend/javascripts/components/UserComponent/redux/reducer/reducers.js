@@ -4,6 +4,15 @@ import {
 } from '../const_value';
 import * as ACTIONS from '../actions';
 
+export function avtiveTab(avtiveTab = DEFAULT_STATE.avtiveTab, action) {
+  switch (action.type) {
+    case ACTIONS.CHANGE_ACTIVE_TAB:
+      return action.tab
+    default:
+      return avtiveTab
+  }
+}
+
 export function clipers(clipers = DEFAULT_STATE.clipers, action) {
   switch (action.type) {
     case ACTIONS.RESET_CLIPERS:

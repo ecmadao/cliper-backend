@@ -13,7 +13,6 @@
   max-width: 300px;
 
   & input.search_input {
-    width: 100% !important;
     height: 100% !important;
     margin-bottom: 0 !important;
   }
@@ -21,8 +20,40 @@
   & i.search_button {
     position: absolute;
     top: 50%;
-    right: 0px;
+    right: 15px;
     transform: translateY(-50%);
     cursor: pointer;
+  }
+}
+
+.clipers_container {
+  width: 80%;
+  margin-left: 10%;
+  padding-top: 40px;
+  position: relative;
+}
+
+.cliper_tabs {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
+
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  & .cliper_tab {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    float: left;
+
+    &.active {
+      border-bottom: 2px solid #3498DB;
+    }
   }
 }

@@ -1,16 +1,36 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import CliperContent from './CliperContent';
+import CliperPage from './CliperPage';
 
 class Cliper extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
-  renderCliperContent() {
+  renderCliper() {
     const {cliper} = this.props;
     const {contents} = cliper;
+    const checkHasContent = contents.some((contentObj) => contentObj.content !== "");
+    if (contents && contents.length && checkHasContent) {
+      return (
+        <div>
+          <div className="cliper_title">
+            <a href={cliper.url} target="_blank" className="cliper_link">
+              <i className="fa fa-link fa-2" aria-hidden="true"></i>&nbsp;{cliper.title}
+            </a>
+          </div>
+          <div className="cliper_content">
+            {this.renderCliperContent(contents)}
+          </div>
+        </div>
+      )
+    }
+    return (<CliperPage cliper={cliper}/>)
+  }
+
+  renderCliperContent(contents) {
     return contents.map((cliperObj, index) => {
+      if (cliperObj.content === "") {
+        return
+      }
       return (
         <CliperContent
           key={index}
@@ -21,29 +41,9 @@ class Cliper extends React.Component {
   }
 
   render() {
-    const {cliper} = this.props;
     return (
       <div className="cliper_container">
-        <div className="cliper_title">
-          <a href={cliper.url} target="_blank" className="cliper_link">
-            <i className="fa fa-link fa-2" aria-hidden="true"></i>&nbsp;{cliper.title}
-          </a>
-        </div>
-        <div className="cliper_content">
-          {this.renderCliperContent()}
-        </div>
-        {/* <div className="cliper_content">
-          {cliper.content ? <div className="cliper_content_wrapper">{cliper.content}</div> : ''}
-          </div>
-          <div className="cliper_info">
-          <div className="cliper_time">
-          <i className="fa fa-calendar" aria-hidden="true"></i>
-          {cliper.createdAt.split('T')[0]}
-          </div>
-          <div className="cliper_comment">
-          <i className="fa fa-comment-o" aria-hidden="true"></i>
-          </div>
-        </div> */}
+        {this.renderCliper()}
       </div>
     )
   }

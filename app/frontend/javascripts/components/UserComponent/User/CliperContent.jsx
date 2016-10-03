@@ -1,12 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import classNames from 'classnames';
 
 class CliperContent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {cliperObj} = this.props;
     const starIconClass = classNames('fa cliper_love', {

@@ -16,6 +16,7 @@ class Clipers extends React.Component {
 
   renderCliper() {
     const {clipers} = this.props;
+    console.log(clipers);
     return clipers.map((cliper, index) => {
       return (
         <Cliper cliper={cliper} key={index}/>

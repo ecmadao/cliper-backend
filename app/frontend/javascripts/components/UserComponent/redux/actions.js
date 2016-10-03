@@ -18,7 +18,22 @@ export const changeActiveTab = (tab) => {
 // clipers
 export const fetchClipers = () => {
   return (dispatch, getState) => {
-    dispatch(resetClipers([]));
+    $.ajax({
+      url: '/cliper/all',
+      method: 'get',
+      success: (data) => {
+        if (data.success) {
+          dispatch(resetClipers(data.data));
+        } else {
+          message.error('Ops..some error happened');
+        }
+        dispatch(changeLoadingStatus(false));
+      },
+      error: (err) => {
+        message.error('Ops..some error happened');
+        dispatch(changeLoadingStatus(false));
+      }
+    });
   }
 };
 

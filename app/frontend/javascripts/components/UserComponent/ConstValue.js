@@ -1,4 +1,4 @@
 export const TABS = {
   all: '全部',
-  love: '最爱'
+  love: '已标记'
 };

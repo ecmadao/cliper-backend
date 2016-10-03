@@ -16,7 +16,7 @@ export function avtiveTab(avtiveTab = DEFAULT_STATE.avtiveTab, action) {
 export function clipers(clipers = DEFAULT_STATE.clipers, action) {
   switch (action.type) {
     case ACTIONS.RESET_CLIPERS:
-      return [...clipers];
+      return [...action.clipers];
     default:
       return clipers;
   }

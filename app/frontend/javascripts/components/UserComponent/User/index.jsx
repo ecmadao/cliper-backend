@@ -15,6 +15,11 @@ class User extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
+  componentDidMount() {
+    const {fetchClipers} = this.props;
+    fetchClipers && fetchClipers();
+  }
+
   handleKeyDown(e) {
     if (e.which === 13) {
 

@@ -23,7 +23,8 @@
     "koa2",
     "nodejs",
     "react",
-    "webpack"
+    "webpack",
+    "redux"
   ],
   "dependencies": {
     "babel-core": "^6.14.0",
@@ -76,6 +77,9 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-manifest-plugin": "^1.0.1"
+    "webpack-manifest-plugin": "^1.0.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
   }
 }

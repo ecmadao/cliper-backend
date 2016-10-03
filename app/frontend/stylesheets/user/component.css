@@ -1,0 +1,28 @@
+.user_component {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cliper_search {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 300px;
+
+  & input.search_input {
+    width: 100% !important;
+    height: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  & i.search_button {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

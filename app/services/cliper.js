@@ -25,6 +25,9 @@ class Cliper {
     cliperStorage.set('url', cliper.url);
     cliperStorage.set('title', cliper.title);
     cliperStorage.set('userId', cliper.userId);
+    cliperStorage.set('comments', []);
+    cliperStorage.set('tags', []);
+    cliperStorage.set('love', false);
     return await cliperStorage.save();
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import Cliper from './Cliper';
+import Cliper from './Cliper/index';
 import {
   TABS
 } from '../ConstValue';
@@ -14,7 +14,7 @@ class Clipers extends React.Component {
     super(props);
   }
 
-  renderCliper() {
+  renderClipers() {
     const {clipers} = this.props;
     return clipers.map((cliper, index) => {
       return (
@@ -47,7 +47,7 @@ class Clipers extends React.Component {
           {this.renderTabs()}
         </div>
         <div className="clipers_wrapper">
-          {this.renderCliper()}
+          {this.renderClipers()}
         </div>
       </div>
     )

@@ -43,28 +43,37 @@ export const formatClipers = (clipers) => {
     let cliperObjs = [];
     clipers.forEach((cliper) => {
       const filterClipers = cliperObjs.filter((cliperObj) => cliperObj.url === cliper.url);
-      // const checkIfExist = cliperObjs.some((cliperObj) => cliperObj.url === cliper.url);
       const cliperObj = {
         content: cliper.content,
-        createdAt: cliper.createdAt,
         tags: cliper.tags,
         love: cliper.love,
         id: cliper.objectId
       };
+      const createdAt = cliper.createdAt.split('T')[0];
+      const newContentObj = {
+        createdAt,
+        clipers: [cliperObj]
+      };
       if (filterClipers && filterClipers.length) {
         let filterCliper = filterClipers[0];
-        filterCliper.contents.push(cliperObj);
+        const filterContents = filterCliper.contents.filter((contentObj) => contentObj.createdAt === createdAt);
+
+        if (filterContents && filterContents.length) {
+          let filterContent = filterContents[0];
+          filterContent.clipers.push(cliperObj);
+        } else {
+          filterCliper.contents.push(newContentObj);
+        }
       } else {
         const newCliper = {
           title: cliper.title,
           url: cliper.url,
-          contents: [cliperObj]
+          contents: [newContentObj]
         };
         cliperObjs.push(newCliper);
       }
     });
     dispatch(resetClipers(cliperObjs));
-    // console.log(cliperObjs);
   }
 };
 

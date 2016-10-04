@@ -16,6 +16,7 @@ export const DEFAULT_STATE = {
   comment: {
     comments: [],
     commentModalActive: false,
+    commentModalLoading: false,
     commentContent: '',
     currentCliper: null
   }

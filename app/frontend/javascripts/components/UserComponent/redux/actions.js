@@ -140,6 +140,14 @@ export const changeCommentModalStatus = (status) => {
   }
 };
 
+export const CHANGE_COMMENT_MODAL_LOADING_STATUS = 'CHANGE_COMMENT_MODAL_LOADING_STATUS';
+export const changeCommentModalLoadingStatus = (status) => {
+  return {
+    type: CHANGE_COMMENT_MODAL_LOADING_STATUS,
+    status
+  }
+};
+
 export const RESET_CLIPER_COMMENTS = 'RESET_CLIPER_COMMENTS';
 export const resetCliperComments = (comments) => {
   return {
@@ -168,9 +176,11 @@ export const fetchCliperComments = (cliperId) => {
           message.error('Ops..some error');
         }
         dispatch(resetCliperComments(result));
+        dispatch(changeCommentModalLoadingStatus(false));
       },
       error: (err) => {
         message.error('Ops..some error');
+        dispatch(changeCommentModalLoadingStatus(false));
       }
     });
   }
@@ -190,6 +200,7 @@ export const handleCommentModalOpen = (cliperId) => {
 export const handleCurrentCliperChange = (cliperId = null) => {
   return (dispatch, getState) => {
     if (cliperId !== null) {
+      dispatch(changeCommentModalLoadingStatus(true));
       dispatch(fetchCliperComments(cliperId));
     }
     dispatch(changeCurrentCliper(cliperId));

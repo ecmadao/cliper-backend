@@ -88,6 +88,10 @@ export function comment(comment = DEFAULT_STATE.comment, action) {
       return setState(comment, {
         commentModalActive: action.status
       });
+    case ACTIONS.CHANGE_COMMENT_MODAL_LOADING_STATUS:
+      return setState(comment, {
+        commentModalLoading: action.status
+      });
     case ACTIONS.CHANGE_CURRENT_CLIPER:
       return setState(comment, {
         currentCliper: action.id

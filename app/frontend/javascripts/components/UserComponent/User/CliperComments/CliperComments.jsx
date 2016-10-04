@@ -35,9 +35,9 @@ class CliperComments extends React.Component {
         )
       });
     }
-    return (
-      <div>has no comments</div>
-    )
+    // return (
+    //   <div>has no comments</div>
+    // )
   }
 
   render() {
@@ -46,16 +46,29 @@ class CliperComments extends React.Component {
       closeModal,
       postNewComment
     } = this.props;
-    const {commentModalActive, commentContent} = comment;
+    const {
+      commentModalActive,
+      commentModalLoading,
+      commentContent
+    } = comment;
     const commentModalClass = classNames('cliper_comment_container', {
       'active': commentModalActive
     });
+    const commentModalLoadingClass = classNames('comment_modal_loading', {
+      'active': commentModalLoading
+    })
     return (
       <div className={commentModalClass}>
         <div
           className="cliper_comment_wrapper"
           onClick={() => closeModal()}></div>
         <div className="cliper_comment_modal">
+          <div className={commentModalLoadingClass}>
+            <div className="comment_modal_center">
+              <div className="loading_bounce"></div>
+              <div className="loading_bounce"></div>
+            </div>
+          </div>
           <div className="cliper_comments">
             {this.renderComments()}
           </div>
@@ -69,7 +82,7 @@ class CliperComments extends React.Component {
             </div>
             <div
               className="button comment_submit"
-              onClick={postNewComment}>submit</div>
+              onClick={postNewComment}>新增记录</div>
           </div>
         </div>
       </div>

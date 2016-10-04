@@ -93,6 +93,19 @@
       transform: translate(-100%, -50%);
     }
   }
+
+  &.loved::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #D32F2F #D32F2F transparent transparent;
+    top: -1px;
+    right: -1px;
+  }
 }
 
 .cliper_content_container {

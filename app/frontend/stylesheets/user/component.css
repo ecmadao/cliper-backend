@@ -223,6 +223,10 @@
     opacity: 1;
     background-color: rgba(167, 167, 167, 0.7);
     z-index: 800;
+
+    & .cliper_comment_modal {
+      transform: translateX(0%);
+    }
   }
 
   & .cliper_comment_wrapper {
@@ -240,6 +244,8 @@
   width: 400px;
   right: 0;
   top: 0;
+  transform: translateX(100%);
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
   background-color: #fff;
 
   & .cliper_comments {
@@ -248,7 +254,6 @@
     left: 5%;
     top: 0;
     bottom: 250px;
-    background-color: #fafafa;
     padding: 15px 0;
     overflow-y: scroll;
 
@@ -260,6 +265,37 @@
     &:hover::-webkit-scrollbar {
       width: 0;
       background: transparent;
+    }
+
+    & .cliper_comment {
+      border-bottom: 1px solid #dcdcdc;
+      padding: 15px 0;
+      position: relative;
+
+      & span {
+        font-size: 0.7em;
+        color: #9D9D9D;
+      }
+
+      &:hover {
+        & i {
+          opacity: 1;
+        }
+      }
+
+      & i {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        opacity: 0;
+        cursor: pointer;
+        transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        &:hover {
+          color: #D32F2F;
+        }
+      }
     }
   }
 
@@ -288,6 +324,7 @@
       margin-left: 2.5%;
       height: 110px;
       resize: none;
+      font-size: 16px;
     }
 
     & .comment_submit {

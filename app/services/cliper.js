@@ -8,8 +8,7 @@ const appCliperBD = config.get('leancloud.appCliperBD');
 AV.init({ appId, appKey });
 
 class Cliper {
-  constructor() {
-  }
+  constructor() {}
 
   async getClipers(userId) {
     const query = new AV.Query(appCliperBD);

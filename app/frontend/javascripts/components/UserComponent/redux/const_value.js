@@ -15,7 +15,7 @@ export const DEFAULT_STATE = {
   avtiveTab: 0,
   comment: {
     comments: [],
-    commentModalActive: true,
+    commentModalActive: false,
     commentContent: '',
     currentCliper: null
   }

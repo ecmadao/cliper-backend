@@ -45,8 +45,6 @@ export const resetClipers = (clipers) => {
   }
 };
 
-
-
 export const handleCliperLoveStatusChange = (id, status) => {
   return (dispatch, getState) => {
     postLoveStatus(id, status);
@@ -109,22 +107,6 @@ export const resetCliper = (cliper) => {
   }
 };
 
-export const ADD_CLIPER_COMMENT = 'ADD_CLIPER_COMMENT';
-export const addCliperComment = (comment) => {
-  return {
-    type: ADD_CLIPER_COMMENT,
-    comment
-  }
-};
-
-export const DELETE_CLIPER_COMMENT = 'DELETE_CLIPER_COMMENT';
-export const deleteCliperComment = (commentId) => {
-  return {
-    type: DELETE_CLIPER_COMMENT,
-    commentId
-  }
-};
-
 export const CHANGE_LOVE_STATUS = 'CHANGE_LOVE_STATUS';
 export const changeLoveStatus = (status) => {
   return {
@@ -166,9 +148,42 @@ export const resetCliperComments = (comments) => {
   }
 };
 
+export const ADD_CLIPER_COMMENT = 'ADD_CLIPER_COMMENT';
+export const addCliperComment = (comment) => {
+  return {
+    type: ADD_CLIPER_COMMENT,
+    comment
+  }
+};
+
 export const fetchCliperComments = (cliperId) => {
   return (dispatch, getState) => {
-    dispatch(resetCliperComments([]));
+    $.ajax({
+      url: `/cliper/${cliperId}/comments`,
+      method: 'get',
+      success: (data) => {
+        let result = data.data;
+        if (!data.success) {
+          result = [];
+          message.error('Ops..some error');
+        }
+        dispatch(resetCliperComments(result));
+      },
+      error: (err) => {
+        message.error('Ops..some error');
+      }
+    });
+  }
+};
+
+export const handleCommentModalOpen = (cliperId) => {
+  return (dispatch, getState) => {
+    dispatch(changeCommentModalStatus(true));
+    const {comment} = getState();
+    const {currentCliper} = comment;
+    if (currentCliper !== cliperId) {
+      dispatch(handleCurrentCliperChange(cliperId));
+    }
   }
 };
 
@@ -196,3 +211,67 @@ export const changeCommentContent = (content) => {
     content
   }
 };
+
+export const postNewComment = () => {
+  return (dispatch, getState) => {
+    NProgress.start();
+    NProgress.set(0.4);
+    const {comment, csrf} = getState();
+    const {commentContent, currentCliper} = comment;
+    if (!commentContent) {
+      message.error('不能为空');
+      return;
+    }
+    $.ajax({
+      url: '/comment/new',
+      method: 'post',
+      data: {
+        '_csrf': csrf,
+        cliperId: currentCliper,
+        content: commentContent
+      },
+      success: (data) => {
+        if (data.success) {
+          dispatch(addCliperComment(data.data));
+          dispatch(changeCommentContent(''));
+        }
+        NProgress.done();
+      },
+      error: (err) => {
+        NProgress.done();
+      }
+    });
+  }
+};
+
+export const DELETE_CLIPER_COMMENT = 'DELETE_CLIPER_COMMENT';
+export const deleteCliperComment = (commentId) => {
+  return {
+    type: DELETE_CLIPER_COMMENT,
+    commentId
+  }
+};
+
+export const deleteComment = (commentId) => {
+  return (dispatch, getState) => {
+    NProgress.start();
+    NProgress.set(0.4);
+    const {csrf} = getState();
+    $.ajax({
+      url: `/comment/${commentId}`,
+      method: 'delete',
+      data: {
+        '_csrf': csrf
+      },
+      success: (data) => {
+        NProgress.done();
+        if (data.success) {
+          dispatch(deleteCliperComment(commentId));
+        }
+      },
+      error: (err) => {
+        NProgress.done();
+      }
+    })
+  }
+}

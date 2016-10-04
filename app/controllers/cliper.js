@@ -1,4 +1,5 @@
 import Cliper from '../services/cliper';
+import Comment from '../services/comment';
 
 const all = async (ctx, next) => {
   const userId = ctx.session.userId;
@@ -43,10 +44,21 @@ const updateCliper = async (ctx, next) => {
   };
 };
 
+const getComments = async (ctx, next) => {
+  const cliperId = ctx.params.id;
+  const userId = ctx.session.userId;
+  const comments = await Comment.getComments(cliperId, userId);
+  ctx.body = {
+    success: true,
+    data: comments
+  };
+};
+
 export default {
   all,
   add,
   deleteCliper,
   getCliper,
-  updateCliper
+  updateCliper,
+  getComments
 }

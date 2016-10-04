@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import {
+  deleteComment,
+  postNewComment,
   changeCommentContent,
   changeCommentModalStatus
 } from '../../redux/actions';
@@ -20,7 +22,7 @@ class CliperComments extends React.Component {
   }
 
   renderComments() {
-    const {comment} = this.props;
+    const {comment, deleteComment} = this.props;
     const {comments} = comment;
     if (comments.length) {
       return comments.map((c, i) => {
@@ -28,6 +30,7 @@ class CliperComments extends React.Component {
           <Comment
             key={i}
             comment={c}
+            deleteComment={deleteComment}
           />
         )
       });
@@ -38,7 +41,11 @@ class CliperComments extends React.Component {
   }
 
   render() {
-    const {comment, closeModal} = this.props;
+    const {
+      comment,
+      closeModal,
+      postNewComment
+    } = this.props;
     const {commentModalActive, commentContent} = comment;
     const commentModalClass = classNames('cliper_comment_container', {
       'active': commentModalActive
@@ -60,7 +67,9 @@ class CliperComments extends React.Component {
                 className="cliper_comment_content"
                 onChange={this.handleCommentChange} />
             </div>
-            <div className="button comment_submit">submit</div>
+            <div
+              className="button comment_submit"
+              onClick={postNewComment}>submit</div>
           </div>
         </div>
       </div>
@@ -80,6 +89,12 @@ function mapDispatchToProps(dispatch) {
     },
     closeModal: () => {
       dispatch(changeCommentModalStatus(false));
+    },
+    postNewComment: () => {
+      dispatch(postNewComment());
+    },
+    deleteComment: (id) => {
+      dispatch(deleteComment(id));
     }
   }
 }

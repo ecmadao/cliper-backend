@@ -32,14 +32,6 @@ export function cliper(cliper = DEFAULT_STATE.cliper, action) {
   switch (action.type) {
     case ACTIONS.RESET_CLIPER:
       return setState({}, action.cliper);
-    case ACTIONS.ADD_CLIPER_COMMENT:
-      return setState(cliper, {
-        comments: [...cliper.comments, action.comment]
-      });
-    case ACTIONS.DELETE_CLIPER_COMMENT:
-      return setState(cliper, {
-        comments: cliper.comments.filter((comment) => comment.id !== action.commentId)
-      });
     case ACTIONS.CHANGE_LOVE_STATUS:
       return setState(cliper, {
         love: action.status
@@ -85,20 +77,28 @@ export function search(search = DEFAULT_STATE.search, action) {
 export function comment(comment = DEFAULT_STATE.comment, action) {
   switch (action.type) {
     case ACTIONS.RESET_CLIPER_COMMENTS:
-      return objectAssign({}, comment, {
+      return setState(comment, {
         comments: [...action.comments]
       });
+    case ACTIONS.ADD_CLIPER_COMMENT:
+      return setState(comment, {
+        comments: [action.comment, ...comment.comments]
+      });
     case ACTIONS.CHANGE_COMMENT_MODAL_STATUS:
-      return objectAssign({}, comment, {
+      return setState(comment, {
         commentModalActive: action.status
       });
     case ACTIONS.CHANGE_CURRENT_CLIPER:
-      return objectAssign({}, comment, {
+      return setState(comment, {
         currentCliper: action.id
       });
     case ACTIONS.CHANGE_COMMENT_CONTENT:
-      return objectAssign({}, comment, {
+      return setState(comment, {
         commentContent: action.content
+      });
+    case ACTIONS.DELETE_CLIPER_COMMENT:
+      return setState(comment, {
+        comments: comment.comments.filter((c) => c.objectId !== action.commentId)
       });
     default:
       return comment

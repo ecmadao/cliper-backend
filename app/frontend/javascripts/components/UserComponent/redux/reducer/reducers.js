@@ -82,6 +82,29 @@ export function search(search = DEFAULT_STATE.search, action) {
   }
 }
 
+export function comment(comment = DEFAULT_STATE.comment, action) {
+  switch (action.type) {
+    case ACTIONS.RESET_CLIPER_COMMENTS:
+      return objectAssign({}, comment, {
+        comments: [...action.comments]
+      });
+    case ACTIONS.CHANGE_COMMENT_MODAL_STATUS:
+      return objectAssign({}, comment, {
+        commentModalActive: action.status
+      });
+    case ACTIONS.CHANGE_CURRENT_CLIPER:
+      return objectAssign({}, comment, {
+        currentCliper: action.id
+      });
+    case ACTIONS.CHANGE_COMMENT_CONTENT:
+      return objectAssign({}, comment, {
+        commentContent: action.content
+      });
+    default:
+      return comment
+  }
+}
+
 function setState(state, newState) {
   return objectAssign({}, state, newState);
 }

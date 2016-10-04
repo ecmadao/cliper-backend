@@ -148,3 +148,51 @@ export const deleteCliperTag = (tagId) => {
     tagId
   }
 };
+
+// comment
+export const CHANGE_COMMENT_MODAL_STATUS = 'CHANGE_COMMENT_MODAL_STATUS';
+export const changeCommentModalStatus = (status) => {
+  return {
+    type: CHANGE_COMMENT_MODAL_STATUS,
+    status
+  }
+};
+
+export const RESET_CLIPER_COMMENTS = 'RESET_CLIPER_COMMENTS';
+export const resetCliperComments = (comments) => {
+  return {
+    type: RESET_CLIPER_COMMENTS,
+    comments
+  }
+};
+
+export const fetchCliperComments = (cliperId) => {
+  return (dispatch, getState) => {
+    dispatch(resetCliperComments([]));
+  }
+};
+
+export const handleCurrentCliperChange = (cliperId = null) => {
+  return (dispatch, getState) => {
+    if (cliperId !== null) {
+      dispatch(fetchCliperComments(cliperId));
+    }
+    dispatch(changeCurrentCliper(cliperId));
+  }
+};
+
+export const CHANGE_CURRENT_CLIPER = 'CHANGE_CURRENT_CLIPER';
+export const changeCurrentCliper = (id) => {
+  return {
+    type: CHANGE_CURRENT_CLIPER,
+    id
+  }
+};
+
+export const CHANGE_COMMENT_CONTENT = 'CHANGE_COMMENT_CONTENT';
+export const changeCommentContent = (content) => {
+  return {
+    type: CHANGE_COMMENT_CONTENT,
+    content
+  }
+};

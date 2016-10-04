@@ -12,5 +12,11 @@ export const DEFAULT_STATE = {
   csrf: null,
   loading: true,
   search: '',
-  avtiveTab: 0
+  avtiveTab: 0,
+  comment: {
+    comments: [],
+    commentModalActive: true,
+    commentContent: '',
+    currentCliper: null
+  }
 };

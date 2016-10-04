@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import LoadingModal from '../../LoadingModal/index';
 import Clipers from './Clipers';
+import CliperComments from './CliperComments/index';
 
 import {
   fetchClipers,
@@ -36,7 +37,8 @@ class User extends React.Component {
     const {loading, search} = this.props;
     return (
       <div className="user_component">
-        <LoadingModal showModal={false}/>
+        <LoadingModal showModal={false} />
+        <CliperComments />
         <div className="cliper_search">
           <input
             placeholder="search.."

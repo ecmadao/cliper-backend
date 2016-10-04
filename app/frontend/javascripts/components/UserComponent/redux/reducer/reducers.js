@@ -17,6 +17,12 @@ export function clipers(clipers = DEFAULT_STATE.clipers, action) {
   switch (action.type) {
     case ACTIONS.RESET_CLIPERS:
       return [...action.clipers];
+    case ACTIONS.CHANGE_CLIPER_LOVE_STATUS:
+      const cliper = clipers[action.index];
+      return [...clipers.slice(0, action.index),
+      objectAssign({}, cliper, {
+        love: !cliper.love
+      }), ...clipers.slice(action.index + 1)]
     default:
       return clipers;
   }

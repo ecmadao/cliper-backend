@@ -10,6 +10,7 @@ router.get('/all', checkIfLogin(), cliper.all);
 router.post('/new', cliper.add);
 router.get('/:id', checkIfLogin(), cliper.getCliper);
 router.delete('/:id', checkIfLogin(), cliper.deleteCliper);
+router.get('/:id/update', checkIfLogin(), cliper.updateCliper);
 router.get('/', checkIfLogin(), cliper.all);
 
 module.exports = router;

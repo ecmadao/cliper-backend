@@ -31,11 +31,22 @@ const deleteCliper = async (ctx, next) => {
     data: null,
     success: true
   };
-}
+};
+
+const updateCliper = async (ctx, next) => {
+  const cliperId = ctx.params.id;
+  const loveQuery = ctx.request.query.love;
+  const love = loveQuery === 'true' ? true : false;
+  const result = await Cliper.changeCliperLoveStatus(cliperId, love);
+  ctx.body = {
+    success: result
+  };
+};
 
 export default {
   all,
   add,
   deleteCliper,
-  getCliper
+  getCliper,
+  updateCliper
 }

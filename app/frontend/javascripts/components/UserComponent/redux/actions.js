@@ -23,7 +23,7 @@ export const fetchClipers = () => {
       method: 'get',
       success: (data) => {
         if (data.success) {
-          dispatch(formatClipers(data.data));
+          dispatch(resetClipers(data.data));
         } else {
           message.error('Ops..some error happened');
         }
@@ -37,52 +37,48 @@ export const fetchClipers = () => {
   }
 };
 
-export const formatClipers = (clipers) => {
-  return (dispatch, getState) => {
-    let cliperObjs = [];
-    clipers.forEach((cliper) => {
-      const filterClipers = cliperObjs.filter((cliperObj) => cliperObj.url === cliper.url);
-      const cliperObj = {
-        content: cliper.content,
-        tags: cliper.tags,
-        love: cliper.love,
-        id: cliper.objectId
-      };
-      const createdAt = cliper.createdAt.split('T')[0];
-      const newContentObj = {
-        hasContent: cliperObj.content !== "",
-        createdAt,
-        clipers: [cliperObj]
-      };
-      if (filterClipers && filterClipers.length) {
-        let filterCliper = filterClipers[0];
-        const filterContents = filterCliper.contents.filter((contentObj) => contentObj.createdAt === createdAt);
-
-        if (filterContents && filterContents.length) {
-          let filterContent = filterContents[0];
-          filterContent.clipers.push(cliperObj);
-          filterContent.hasContent = cliperObj.content !== "";
-        } else {
-          filterCliper.contents.push(newContentObj);
-        }
-      } else {
-        const newCliper = {
-          title: cliper.title,
-          url: cliper.url,
-          contents: [newContentObj]
-        };
-        cliperObjs.push(newCliper);
-      }
-    });
-    dispatch(resetClipers(cliperObjs));
-  }
-};
-
 export const RESET_CLIPERS = 'RESET_CLIPERS';
 export const resetClipers = (clipers) => {
   return {
     type: RESET_CLIPERS,
     clipers
+  }
+};
+
+
+
+export const handleCliperLoveStatusChange = (id, status) => {
+  return (dispatch, getState) => {
+    postLoveStatus(id, status);
+    const {clipers} = getState();
+    let targetIndex = null;
+    clipers.forEach((cliper, index) => {
+      if (cliper.objectId === id) {
+        targetIndex = index;
+      }
+    });
+    if (targetIndex !== null) {
+      dispatch(changeCliperLoveStatus(targetIndex));
+    }
+  }
+};
+
+const postLoveStatus = (id, status) => {
+  $.ajax({
+    url: `/cliper/${id}/update?love=${status}`,
+    method: 'get',
+    success: (data) => {},
+    error: (err) => {
+      console.log(err);
+    }
+  });
+};
+
+export const CHANGE_CLIPER_LOVE_STATUS = 'CHANGE_CLIPER_LOVE_STATUS';
+export const changeCliperLoveStatus = (index) => {
+  return {
+    type: CHANGE_CLIPER_LOVE_STATUS,
+    index
   }
 };
 

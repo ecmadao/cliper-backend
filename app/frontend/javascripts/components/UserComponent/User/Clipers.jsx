@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Cliper from './Cliper/index';
 import {
-  TABS
+  TABS,
+  formatClipers
 } from '../ConstValue';
 import {
   changeActiveTab
@@ -57,7 +58,7 @@ class Clipers extends React.Component {
 function mapStateToProps(state) {
   const {clipers, avtiveTab} = state;
   return {
-    clipers,
+    clipers: formatClipers(clipers),
     avtiveTab
   }
 }

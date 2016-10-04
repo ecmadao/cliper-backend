@@ -8,7 +8,11 @@ class CliperContents extends React.Component {
       if (cliper.content === "") {
         return;
       }
-      return (<CliperContent key={index} cliper={cliper}/>);
+      return (
+        <CliperContent
+          key={index}
+          cliper={cliper}
+        />);
     });
   }
 

@@ -81,9 +81,17 @@
   font-weight: lighter;
   line-height: 1.5em;
   font-size: 0.9em;
+  position: relative;
 
   &:not(:last-child) {
     border-bottom: 1px solid #dcdcdc;
+  }
+
+  &:hover {
+    & .cliper_operations {
+      opacity: 1;
+      transform: translate(-100%, -50%);
+    }
   }
 }
 
@@ -153,5 +161,48 @@
   &:hover {
     border: 1px solid transparent;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+  }
+}
+
+.cliper_operations {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  opacity: 0;
+  height: 100%;
+  width: 60px;
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform: translate(0%, -50%);
+
+  & .cliper_operations_container {
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    transform: translateY(-50%);
+
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    & .cliper_operation {
+      float: left;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    & .cliper_love {
+      margin-right: 10px;
+      margin-top: 1px;
+
+      &:hover {
+        color: #D32F2F;
+      }
+
+      &.active {
+        color: #D32F2F;
+      }
+    }
   }
 }

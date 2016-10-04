@@ -1,16 +1,16 @@
 import React from 'react';
-import classNames from 'classnames';
+import CliperOperation from './CliperOperation';
 
 class CliperContent extends React.Component {
   render() {
     const {cliper} = this.props;
-    const starIconClass = classNames('fa cliper_love', {
-      'fa-star-o': !cliper.love,
-      'active': cliper.love
-    });
     return (
       <div className="content_container">
         {cliper.content}
+        <CliperOperation
+          id={cliper.id}
+          love={cliper.love}
+        />
       </div>
     )
   }

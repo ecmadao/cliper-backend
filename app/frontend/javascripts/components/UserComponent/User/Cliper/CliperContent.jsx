@@ -11,12 +11,6 @@ class CliperContent extends React.Component {
     return (
       <div className="content_container">
         {cliper.content}
-        {/* <div className="cliper_content_wrapper">
-          {cliper.content}
-        </div> */}
-        {/* <div className="cliper_content_info">
-          <i className={starIconClass} aria-hidden="true"></i>
-        </div> */}
       </div>
     )
   }

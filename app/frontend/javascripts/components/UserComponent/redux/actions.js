@@ -24,7 +24,6 @@ export const fetchClipers = () => {
       success: (data) => {
         if (data.success) {
           dispatch(formatClipers(data.data));
-          // dispatch(resetClipers(data.data));
         } else {
           message.error('Ops..some error happened');
         }
@@ -51,6 +50,7 @@ export const formatClipers = (clipers) => {
       };
       const createdAt = cliper.createdAt.split('T')[0];
       const newContentObj = {
+        hasContent: cliperObj.content !== "",
         createdAt,
         clipers: [cliperObj]
       };
@@ -61,6 +61,7 @@ export const formatClipers = (clipers) => {
         if (filterContents && filterContents.length) {
           let filterContent = filterContents[0];
           filterContent.clipers.push(cliperObj);
+          filterContent.hasContent = cliperObj.content !== "";
         } else {
           filterCliper.contents.push(newContentObj);
         }

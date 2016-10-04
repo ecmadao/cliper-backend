@@ -6,9 +6,10 @@ class CliperPage extends React.Component {
     const {cliper} = this.props;
     const {title, url, contents} = cliper;
     const content = contents.slice(-1)[0];
+    const cliperObj = content.clipers[0];
     const starIconClass = classNames('fa cliper_love', {
-      'fa-star-o': !content.love,
-      'active': content.love
+      'fa-star-o': !cliperObj.love,
+      'active': cliperObj.love
     });
     return (
       <div className="cliper_page">
@@ -21,9 +22,9 @@ class CliperPage extends React.Component {
         <div className="cliper_page_info">
           <div className="cliper_time">
             <i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-            {content.createdAt.split('T')[0]}
+            {content.createdAt}
           </div>
-          <i className={starIconClass} aria-hidden="true"></i>
+          {/* <i className={starIconClass} aria-hidden="true"></i> */}
         </div>
       </div>
     )

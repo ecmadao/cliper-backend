@@ -8,7 +8,7 @@ class Cliper extends React.Component {
   renderCliper() {
     const {cliper} = this.props;
     const {contents} = cliper;
-    const checkHasContent = contents.some((contentObj) => contentObj.content !== "");
+    const checkHasContent = contents.some((contentObj) => contentObj.hasContent);
     if (contents && contents.length && checkHasContent) {
       return this.renderCliperContent();
     }

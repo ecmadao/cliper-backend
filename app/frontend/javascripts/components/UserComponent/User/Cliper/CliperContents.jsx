@@ -2,22 +2,6 @@ import React from 'react';
 import CliperContent from './CliperContent';
 
 class CliperContents extends React.Component {
-  // renderCliperContents() {
-  //   const {cliperContent} = this.props;
-  //   return cliperContents.map((cliperContent, index) => {
-  //     return (
-  //       <div className="cliper_content_container">
-  //         <div className="cliper_title">
-  //           <a href={cliper.url} target="_blank" className="cliper_link">
-  //             <i className="fa fa-link fa-2" aria-hidden="true"></i>&nbsp;{cliper.title}
-  //           </a>
-  //         </div>
-  //         {this.renderContents(cliperContent)}
-  //       </div>
-  //     )
-  //   });
-  // }
-
   renderClipers() {
     const {cliperContent} = this.props;
     return cliperContent.clipers.map((cliper, index) => {

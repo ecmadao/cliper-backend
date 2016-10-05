@@ -15,6 +15,17 @@ class CliperComments extends React.Component {
     this.handleCommentChange = this.handleCommentChange.bind(this);
   }
 
+  componentDidUpdate(preProps) {
+    const modalActive = this.props.comment.commentModalActive;
+    const preActive = preProps.comment.commentModalActive;
+    if (modalActive) {
+      $('body').addClass('with_modal');
+      $(this.commentContent).focus();
+    } else {
+      $('body').removeClass('with_modal');
+    }
+  }
+
   handleCommentChange() {
     const content = this.commentContent.value;
     const {changeContent} = this.props;

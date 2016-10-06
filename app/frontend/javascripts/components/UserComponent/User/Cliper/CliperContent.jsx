@@ -15,6 +15,12 @@ class CliperContent extends React.Component {
           id={cliper.id}
           love={cliper.love}
         />
+        {/* <i
+          className="fa fa-times cliper_remove"
+          aria-hidden="true"
+          onClick={() => {
+          deleteCliper(id);
+        }}></i> */}
       </div>
     )
   }

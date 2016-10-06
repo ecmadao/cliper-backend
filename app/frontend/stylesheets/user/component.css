@@ -12,9 +12,14 @@
   z-index: 9;
   transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
+  &.search_in_top {
+    position: fixed;
+    transform: translate(-50%, 0%);
+  }
+
   & input.search_input {
     margin-bottom: 0 !important;
-    width: 400px;
+    width: 600px;
     transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
@@ -332,7 +337,7 @@
       }
 
       &:hover {
-        background-color: #1D88DD;
+        background-color: #1B7DCB;
 
         & .comment_info {
           & i {
@@ -372,7 +377,7 @@
       & .comment_content {
         padding: 15px 0;
         font-size: 14px;
-        line-height: 1.4em;
+        line-height: 1.5em;
       }
     }
   }
@@ -409,6 +414,11 @@
       width: 80%;
       margin-top: 30px;
       margin-left: 5%;
+      background-color: rgba(66, 66, 66, 0.45);
+
+      &:hover {
+        background-color: rgba(66, 66, 66, 1);
+      }
     }
   }
 }

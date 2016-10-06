@@ -71,15 +71,50 @@ export const handleCliperLoveStatusChange = (id, status) => {
   }
 };
 
-const postLoveStatus = (id, status) => {
+const deleteCliper = (id, csrf) => {
   $.ajax({
-    url: `/cliper/${id}/update?love=${status}`,
-    method: 'get',
+    url: `/cliper/${id}`,
+    method: 'delete',
+    data: {
+      '_csrf': csrf
+    },
     success: (data) => {},
     error: (err) => {
       console.log(err);
     }
   });
+};
+
+const postLoveStatus = (id, status) => {
+  NProgress.start();
+  NProgress.set(0.4);
+  $.ajax({
+    url: `/cliper/${id}/update?love=${status}`,
+    method: 'get',
+    success: (data) => {
+      NProgress.done();
+    },
+    error: (err) => {
+      NProgress.done();
+      console.log(err);
+    }
+  });
+};
+
+export const handleCliperDelete = (id) => {
+  return (dispatch, getState) => {
+    const {csrf} = getState();
+    deleteCliper(id, csrf);
+    dispatch(removeCliper(id));
+  }
+};
+
+export const REMOVE_CLIPER = 'REMOVE_CLIPER';
+const removeCliper = (id) => {
+  return {
+    type: REMOVE_CLIPER,
+    id
+  }
 };
 
 export const CHANGE_CLIPER_LOVE_STATUS = 'CHANGE_CLIPER_LOVE_STATUS';

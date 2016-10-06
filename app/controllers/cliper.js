@@ -30,8 +30,10 @@ const add = async (ctx, next) => {
 };
 
 const deleteCliper = async (ctx, next) => {
+  const cliperId = ctx.params.id;
+  const result = await Cliper.deleteCliper(cliperId);
   ctx.body = {
-    data: null,
+    data: result,
     success: true
   };
 };

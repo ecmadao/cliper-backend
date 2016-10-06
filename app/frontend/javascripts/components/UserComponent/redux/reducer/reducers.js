@@ -17,6 +17,8 @@ export function clipers(clipers = DEFAULT_STATE.clipers, action) {
   switch (action.type) {
     case ACTIONS.RESET_CLIPERS:
       return [...action.clipers];
+    case ACTIONS.REMOVE_CLIPER:
+      return clipers.filter((cliper) => cliper.objectId !== action.id);
     case ACTIONS.CHANGE_CLIPER_LOVE_STATUS:
       const cliper = clipers[action.index];
       return [...clipers.slice(0, action.index),

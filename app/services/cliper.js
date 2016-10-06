@@ -35,6 +35,11 @@ class Cliper {
     return {};
   }
 
+  async deleteCliper(cliperId) {
+    const cliper = AV.Object.createWithoutData(appCliperBD, cliperId);
+    return await cliper.destroy();
+  }
+
   async changeCliperLoveStatus(cliperId, status) {
     const cliper = AV.Object.createWithoutData(appCliperBD, cliperId);
     cliper.set('love', status);

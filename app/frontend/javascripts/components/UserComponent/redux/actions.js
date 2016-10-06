@@ -235,14 +235,14 @@ export const changeCommentContent = (content) => {
 
 export const postNewComment = () => {
   return (dispatch, getState) => {
-    NProgress.start();
-    NProgress.set(0.4);
     const {comment, csrf} = getState();
     const {commentContent, currentCliper} = comment;
     if (!commentContent) {
       message.error('不能为空');
       return;
     }
+    NProgress.start();
+    NProgress.set(0.4);
     $.ajax({
       url: '/comment/new',
       method: 'post',

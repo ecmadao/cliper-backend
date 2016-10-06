@@ -48,3 +48,19 @@
   padding: 8px 12px;
   width: 80px;
 }
+
+.button_flat {
+  border: 1px solid #F5F5F5;
+  border-radius: 2px;
+  padding: 13px 20px;
+  color: #F5F5F5;
+  cursor: pointer;
+  text-align: center;
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  font-size: 14px;
+
+  &:hover {
+    background-color: #424242;
+    border: 1px solid transparent;
+  }
+}

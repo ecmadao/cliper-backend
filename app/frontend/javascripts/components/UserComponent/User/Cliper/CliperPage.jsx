@@ -11,10 +11,6 @@ class CliperPage extends React.Component {
     const cliperPageClass = classNames('cliper_page', {
       'loved': cliperObj.love
     });
-    // const starIconClass = classNames('fa cliper_love', {
-    //   'fa-star-o': !cliperObj.love,
-    //   'active': cliperObj.love
-    // });
     return (
       <div className={cliperPageClass}>
         <div className="cliper_page_title">

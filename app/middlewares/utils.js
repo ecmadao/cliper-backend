@@ -1,3 +1,17 @@
+export const checkIfUserLogin = async (ctx, next) => {
+  const userId = ctx.session.userId;
+  const user = ctx.session.user;
+  if (user) {
+    ctx.body = {
+      success: true,
+      message: '已登录',
+      data: user
+    }
+    return;
+  }
+  await next();
+};
+
 export const checkIfLogin = (redirect = '/login') => {
   return async (ctx, next) => {
     const userId = ctx.session.userId;

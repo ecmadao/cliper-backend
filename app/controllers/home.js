@@ -1,8 +1,5 @@
 const index = async (ctx, next) => {
-  ctx.session.userId = null;
-  ctx.session.token = null;
-  // ctx.body = 'this is home page';
-  ctx.redirect('/login');
+  ctx.redirect('/user');
 };
 
 const csrf = async (ctx, next) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import CliperOperation from './CliperOperation';
 
 class CliperPage extends React.Component {
   render() {
@@ -7,12 +8,15 @@ class CliperPage extends React.Component {
     const {title, url, contents} = cliper;
     const content = contents.slice(-1)[0];
     const cliperObj = content.clipers[0];
-    const starIconClass = classNames('fa cliper_love', {
-      'fa-star-o': !cliperObj.love,
-      'active': cliperObj.love
+    const cliperPageClass = classNames('cliper_page', {
+      'loved': cliperObj.love
     });
+    // const starIconClass = classNames('fa cliper_love', {
+    //   'fa-star-o': !cliperObj.love,
+    //   'active': cliperObj.love
+    // });
     return (
-      <div className="cliper_page">
+      <div className={cliperPageClass}>
         <div className="cliper_page_title">
           <a className="cliper_page_container" href={url} target="_blank">
             <i className="fa fa-link fa-2" aria-hidden="true"></i>
@@ -24,8 +28,11 @@ class CliperPage extends React.Component {
             <i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;
             {content.createdAt}
           </div>
-          {/* <i className={starIconClass} aria-hidden="true"></i> */}
         </div>
+        <CliperOperation
+          id={cliperObj.id}
+          love={cliperObj.love}
+        />
       </div>
     )
   }

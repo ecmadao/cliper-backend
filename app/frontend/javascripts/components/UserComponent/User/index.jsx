@@ -19,6 +19,17 @@ class User extends React.Component {
   componentDidMount() {
     const {fetchClipers} = this.props;
     fetchClipers && fetchClipers();
+    // const $sliperSearch = $('.cliper_search');
+    // const sliperSearchTop = $sliperSearch.offset().top;
+    // const $document = $(document);
+    // $(window).scroll(() => {
+    //   let currentTop = $document.scrollTop();
+    //   if (currentTop > sliperSearchTop) {
+    //     $sliperSearch.addClass('search_in_top');
+    //   } else {
+    //     $sliperSearch.removeClass('search_in_top');
+    //   }
+    // });
   }
 
   handleKeyDown(e) {

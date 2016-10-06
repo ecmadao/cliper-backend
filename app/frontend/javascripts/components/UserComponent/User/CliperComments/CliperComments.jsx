@@ -92,7 +92,7 @@ class CliperComments extends React.Component {
                 onChange={this.handleCommentChange} />
             </div>
             <div
-              className="button_flat comment_submit"
+              className="button_flat_fill comment_submit"
               onClick={postNewComment}>新增记录</div>
           </div>
         </div>

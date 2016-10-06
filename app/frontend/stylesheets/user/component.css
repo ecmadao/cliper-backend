@@ -197,15 +197,50 @@
   top: 50%;
   opacity: 0;
   height: 100%;
-  width: 60px;
+  width: 85px;
   padding-left: 15px;
   transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
   transform: translate(0%, -50%);
 
+  & .operations_menu {
+    background-color: #fff;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0px;
+    left: -10px;
+    opacity: 0;
+    z-index: -1;
+    transform: translateY(100%);
+    transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    &.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    & .menu_operation {
+      padding: 3px 13px;
+      font-size: 12px;
+      cursor: pointer;
+      background-color: transparent;
+      transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #fafafa;
+      }
+
+      &:hover {
+        background-color: #757575;
+        color: #F5F5F5;
+      }
+    }
+  }
+
   & .cliper_operations_container {
     position: absolute;
     top: 50%;
-    width: 60px;
+    width: 85px;
     transform: translateY(-50%);
 
     &::after {
@@ -218,10 +253,11 @@
       float: left;
       cursor: pointer;
       font-size: 18px;
+      margin-right: 10px;
     }
 
     & .cliper_love {
-      margin-right: 10px;
+      /*margin-right: 10px;*/
       margin-top: 1px;
 
       &:hover {

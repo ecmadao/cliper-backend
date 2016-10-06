@@ -7,7 +7,7 @@ import {
   formatClipers
 } from '../ConstValue';
 import {
-  changeActiveTab
+  handleTabChange
 } from '../redux/actions';
 
 class Clipers extends React.Component {
@@ -25,7 +25,7 @@ class Clipers extends React.Component {
   }
 
   renderTabs() {
-    const {changeActiveTab, avtiveTab} = this.props;
+    const {handleTabChange, avtiveTab} = this.props;
     return Object.keys(TABS).map((tab, index) => {
       const tabClass = classNames('cliper_tab', {
         'active': avtiveTab === index
@@ -35,7 +35,7 @@ class Clipers extends React.Component {
           key={index}
           className={tabClass}
           onClick={() => {
-            changeActiveTab(index)
+            handleTabChange(index)
           }}>{TABS[tab]}</div>
       )
     });
@@ -65,8 +65,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeActiveTab: (index) => {
-      dispatch(changeActiveTab(index));
+    handleTabChange: (index) => {
+      dispatch(handleTabChange(index));
     }
   }
 }

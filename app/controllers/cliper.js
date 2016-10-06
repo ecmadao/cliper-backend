@@ -3,7 +3,9 @@ import Comment from '../services/comment';
 
 const all = async (ctx, next) => {
   const userId = ctx.session.userId;
-  const clipers = await Cliper.getClipers(userId);
+  const loveQuery = ctx.request.query.love;
+  const query = loveQuery === 'true' ? {userId, love: true} : {userId};
+  const clipers = await Cliper.getClipers(query);
   ctx.body = {
     data: clipers,
     success: true

@@ -7,6 +7,16 @@ import Message from '../../../common/message';
 const message = new Message();
 
 // tab
+export const handleTabChange = (tab) => {
+  return (dispatch, getState) => {
+    const {avtiveTab} = getState();
+    dispatch(changeActiveTab(tab));
+    if (avtiveTab !== tab) {
+      const query = tab === 0 ? '' : '?love=true';
+      dispatch(fetchClipers(query));
+    }
+  }
+}
 export const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 export const changeActiveTab = (tab) => {
   return {
@@ -16,10 +26,10 @@ export const changeActiveTab = (tab) => {
 };
 
 // clipers
-export const fetchClipers = () => {
+export const fetchClipers = (query = '') => {
   return (dispatch, getState) => {
     $.ajax({
-      url: '/cliper/all',
+      url: `/cliper/all${query}`,
       method: 'get',
       success: (data) => {
         if (data.success) {

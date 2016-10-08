@@ -5,7 +5,7 @@ import Clipers from './Clipers';
 import CliperComments from './CliperComments/index';
 
 import {
-  fetchClipers,
+  getClipersByQuery,
   changeSearchContent
 } from '../redux/actions';
 
@@ -17,8 +17,8 @@ class User extends React.Component {
   }
 
   componentDidMount() {
-    const {fetchClipers} = this.props;
-    fetchClipers && fetchClipers();
+    const {getClipersByQuery} = this.props;
+    getClipersByQuery && getClipersByQuery();
     const $sliperSearch = $('.cliper_search');
     const sliperSearchTop = $sliperSearch.offset().top;
     const $document = $(document);
@@ -33,8 +33,9 @@ class User extends React.Component {
   }
 
   handleKeyDown(e) {
+    const {getClipersByQuery} = this.props;
     if (e.which === 13) {
-
+      getClipersByQuery();
     }
   }
 
@@ -61,7 +62,10 @@ class User extends React.Component {
           />
           <i
             className="fa fa-space-shuttle search_button"
-            aria-hidden="true"></i>
+            aria-hidden="true"
+            onClick={() => {
+              getClipersByQuery();
+            }}></i>
         </div>
         <Clipers />
       </div>
@@ -76,11 +80,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchClipers: () => {
-      dispatch(fetchClipers());
-    },
     changeSearchContent: (search) => {
       dispatch(changeSearchContent(search));
+    },
+    getClipersByQuery: () => {
+      dispatch(getClipersByQuery());
     }
   }
 }

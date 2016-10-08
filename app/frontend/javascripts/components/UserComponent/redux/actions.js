@@ -12,11 +12,11 @@ export const handleTabChange = (tab) => {
     const {avtiveTab} = getState();
     dispatch(changeActiveTab(tab));
     if (avtiveTab !== tab) {
-      const query = tab === 0 ? '' : '?love=true';
-      dispatch(fetchClipers(query));
+      dispatch(getClipersByQuery(tab));
     }
   }
 }
+
 export const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 export const changeActiveTab = (tab) => {
   return {
@@ -26,6 +26,20 @@ export const changeActiveTab = (tab) => {
 };
 
 // clipers
+export const getClipersByQuery = (tab = null) => {
+  return (dispatch, getState) => {
+    const {search, avtiveTab} = getState();
+    if (tab === null) {
+      tab = avtiveTab;
+    }
+    let query = tab === 0 ? '?' : '?love=true';
+    if (search) {
+      query = `${query}&find=${search}`;
+    }
+    dispatch(fetchClipers(query));
+  }
+}
+
 export const fetchClipers = (query = '') => {
   return (dispatch, getState) => {
     $.ajax({

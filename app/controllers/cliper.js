@@ -4,8 +4,9 @@ import Comment from '../services/comment';
 const all = async (ctx, next) => {
   const userId = ctx.session.userId;
   const loveQuery = ctx.request.query.love;
+  const matchString = ctx.request.query.find;
   const query = loveQuery === 'true' ? {userId, love: true} : {userId};
-  const clipers = await Cliper.getClipers(query);
+  const clipers = await Cliper.getClipers(query, matchString);
   ctx.body = {
     data: clipers,
     success: true

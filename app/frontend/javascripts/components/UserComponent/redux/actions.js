@@ -447,6 +447,8 @@ const getTagIndex = (tags, pageUrl) => {
 
 export const postNewTag = (content, pageUrl) => {
   return (dispatch, getState) => {
+    NProgress.start();
+    NProgress.set(0.4);
     const {csrf, tags} = getState();
     const tagObjIndex = getTagIndex(tags, pageUrl);
     $.ajax({
@@ -461,8 +463,11 @@ export const postNewTag = (content, pageUrl) => {
         if (data.success) {
           dispatch(addTag(tagObjIndex, data.data));
         }
+        NProgress.done();
       },
-      error: (err) => {}
+      error: (err) => {
+        NProgress.done();
+      }
     });
   }
 };

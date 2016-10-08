@@ -20,6 +20,22 @@ class Cliper extends React.Component {
     }
   }
 
+  renderCliperTag() {
+    return (
+      <div className="cliper_tags_container">
+        <i className="fa fa-tags" aria-hidden="true"></i>
+        {this.renderTags()}
+        <input
+          className="input mini flat"
+          type="text"
+          placeholder="add tag"
+          ref={ref => this.tag = ref}
+          onKeyDown={this.postNewTag}
+        />
+      </div>
+    )
+  }
+
   renderTags() {
     const {cliper, deleteTag} = this.props;
     const {tags, url} = cliper;
@@ -36,13 +52,19 @@ class Cliper extends React.Component {
   }
 
   renderCliper() {
-    const {cliper} = this.props;
+    const {cliper, currentCliper, commentModalActive} = this.props;
     const {contents} = cliper;
     const checkHasContent = contents.some((contentObj) => contentObj.hasContent);
     if (contents && contents.length && checkHasContent) {
       return this.renderCliperContent();
     }
-    return (<CliperPage cliper={cliper}/>)
+    return (
+      <CliperPage
+        cliper={cliper}
+        active={cliper.id === currentCliper && commentModalActive}>
+        {this.renderCliperTag()}
+      </CliperPage>
+    )
   }
 
   renderCliperContent() {
@@ -55,28 +77,21 @@ class Cliper extends React.Component {
             <i className="fa fa-link fa-2" aria-hidden="true"></i>&nbsp;{cliper.title}
           </a>
         </div>
-        <div className="cliper_tags_container">
-          <i className="fa fa-tags" aria-hidden="true"></i>
-          {this.renderTags()}
-          <input
-            className="input mini flat"
-            type="text"
-            placeholder="add tag"
-            ref={ref => this.tag = ref}
-            onKeyDown={this.postNewTag}
-          />
-        </div>
+        {this.renderCliperTag()}
         {this.renderCliperContents(contents)}
       </div>
     )
   }
 
   renderCliperContents(contents) {
+    const {currentCliper, commentModalActive} = this.props;
     return contents.map((cliperObj, index) => {
       return (
         <CliperContents
           key={index}
           cliperContent={cliperObj}
+          currentCliper={currentCliper}
+          commentModalActive={commentModalActive}
         />
       )
     });

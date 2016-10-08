@@ -3,7 +3,7 @@ import CliperContent from './CliperContent';
 
 class CliperContents extends React.Component {
   renderClipers() {
-    const {cliperContent} = this.props;
+    const {cliperContent, currentCliper, commentModalActive} = this.props;
     return cliperContent.clipers.map((cliper, index) => {
       if (cliper.content === "") {
         return;
@@ -12,6 +12,7 @@ class CliperContents extends React.Component {
         <CliperContent
           key={index}
           cliper={cliper}
+          active={currentCliper === cliper.id && commentModalActive}
         />);
     });
   }

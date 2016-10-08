@@ -107,6 +107,7 @@
   transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
   &:hover {
+    color: #4a4a4a;
     background-color: rgb(230, 230, 230);
   }
 }
@@ -131,6 +132,7 @@
 .cliper_page_title {
   height: 50px;
   width: 100%;
+  margin-bottom: 10px;
   border-bottom: 1px solid rgb(230, 230, 230);
 
   & .cliper_page_container {

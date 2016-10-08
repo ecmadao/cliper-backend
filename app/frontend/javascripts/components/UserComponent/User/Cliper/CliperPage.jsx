@@ -4,7 +4,7 @@ import CliperOperation from './CliperOperation';
 
 class CliperPage extends React.Component {
   render() {
-    const {cliper} = this.props;
+    const {cliper, children} = this.props;
     const {title, url, contents} = cliper;
     const content = contents.slice(-1)[0];
     const cliperObj = content.clipers[0];
@@ -19,6 +19,7 @@ class CliperPage extends React.Component {
             &nbsp;{cliper.title}
           </a>
         </div>
+        {children}
         <div className="cliper_page_info">
           <div className="cliper_time">
             <i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;

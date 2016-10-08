@@ -42,10 +42,6 @@ export function cliper(cliper = DEFAULT_STATE.cliper, action) {
       return setState(cliper, {
         tags: [...cliper.tags, action.tag]
       });
-    case ACTIONS.DELETE_CLIPER_TAG:
-      return setState(cliper, {
-        tags: cliper.tags.filter((tag) => tag.id !== action.tagId)
-      });
     default:
       return cliper;
   }
@@ -108,6 +104,27 @@ export function comment(comment = DEFAULT_STATE.comment, action) {
       });
     default:
       return comment
+  }
+}
+
+export function tags(tags = DEFAULT_STATE.tags, action) {
+  switch (action.type) {
+    case ACTIONS.RESET_TAGS:
+      return [...action.tags];
+    case ACTIONS.ADD_TAG:
+      let tag = tags[action.index];
+      return [...tags.slice(0, action.index), {
+        pageUrl: tag.pageUrl,
+        tags: [...tag.tags, action.tag]
+      }, ...tags.slice(action.index + 1)];
+    case ACTIONS.DELETE_TAG:
+      let targetTag = tags[action.index];
+      return [...tags.slice(0, action.index), {
+        pageUrl: targetTag.pageUrl,
+        tags: targetTag.tags.filter((tag) => tag.objectId !== action.tagId)
+      }, ...tags.slice(action.index + 1)];
+    default:
+      return tags;
   }
 }
 

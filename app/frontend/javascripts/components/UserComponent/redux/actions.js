@@ -12,11 +12,11 @@ export const handleTabChange = (tab) => {
     const {avtiveTab} = getState();
     dispatch(changeActiveTab(tab));
     if (avtiveTab !== tab) {
-      const query = tab === 0 ? '' : '?love=true';
-      dispatch(fetchClipers(query));
+      dispatch(getClipersByQuery(tab));
     }
   }
 }
+
 export const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 export const changeActiveTab = (tab) => {
   return {
@@ -26,6 +26,20 @@ export const changeActiveTab = (tab) => {
 };
 
 // clipers
+export const getClipersByQuery = (tab = null) => {
+  return (dispatch, getState) => {
+    const {search, avtiveTab} = getState();
+    if (tab === null) {
+      tab = avtiveTab;
+    }
+    let query = tab === 0 ? '?' : '?love=true';
+    if (search) {
+      query = `${query}&find=${search}`;
+    }
+    dispatch(fetchClipers(query));
+  }
+}
+
 export const fetchClipers = (query = '') => {
   return (dispatch, getState) => {
     $.ajax({
@@ -33,7 +47,9 @@ export const fetchClipers = (query = '') => {
       method: 'get',
       success: (data) => {
         if (data.success) {
-          dispatch(resetClipers(data.data));
+          const clipers = data.data;
+          dispatch(resetClipers(clipers));
+          dispatch(getTags(clipers));
         } else {
           message.error('Ops..some error happened');
         }
@@ -168,14 +184,6 @@ export const addCliperTag = (tag) => {
   }
 };
 
-export const DELETE_CLIPER_TAG = 'DELETE_CLIPER_TAG';
-export const deleteCliperTag = (tagId) => {
-  return {
-    type: DELETE_CLIPER_TAG,
-    tagId
-  }
-};
-
 // comment
 export const CHANGE_COMMENT_MODAL_STATUS = 'CHANGE_COMMENT_MODAL_STATUS';
 export const changeCommentModalStatus = (status) => {
@@ -212,7 +220,7 @@ export const addCliperComment = (comment) => {
 export const fetchCliperComments = (cliperId) => {
   return (dispatch, getState) => {
     $.ajax({
-      url: `/cliper/${cliperId}/comments`,
+      url: `/comment/${cliperId}`,
       method: 'get',
       success: (data) => {
         let result = data.data;
@@ -331,3 +339,130 @@ export const deleteComment = (commentId) => {
     })
   }
 }
+
+// tags
+const makeInitialTags = (clipers) => {
+  let tagObjs = [];
+  clipers.forEach((cliper) => {
+    const filterClipers = tagObjs.filter((cliperObj) => cliperObj.pageUrl === cliper.url);
+    if (!filterClipers.length) {
+      tagObjs.push({
+        pageUrl: cliper.url,
+        tags: []
+      });
+    }
+  });
+  return tagObjs;
+};
+
+const fetchTags = (pageUrl) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: '/tag/all',
+      method: 'get',
+      data: {
+        pageUrl
+      },
+      success: (data) => {
+        if (data.success) {
+          resolve(data.data);
+        }
+      },
+      error: (err) => {
+        reject(err);
+      }
+    });
+  });
+};
+
+export const getTags = (clipers) => {
+  return (dispatch, getState) => {
+    let tagObjs = makeInitialTags(clipers);
+    Promise.all(tagObjs.map(tagObj => fetchTags(tagObj.pageUrl))).then((resultList) => {
+      resultList.map((tags, index) => {
+        tagObjs[index].tags = tags;
+      });
+      dispatch(resetTags(tagObjs));
+    });
+  }
+};
+
+export const RESET_TAGS = 'RESET_TAGS';
+export const resetTags = (tags) => {
+  return {
+    type: RESET_TAGS,
+    tags
+  }
+};
+
+export const ADD_TAG = 'ADD_TAG';
+export const addTag = (index, tag) => {
+  return {
+    type: ADD_TAG,
+    index,
+    tag
+  }
+};
+
+const deleteCliperTag = (tagId, csrf) => {
+  $.ajax({
+    url: `/tag/${tagId}`,
+    method: 'delete',
+    data: {
+      '_csrf': csrf
+    },
+    success: (data) => {},
+    error: (err) => {}
+  });
+};
+
+export const handleTagDelete = (tagId, pageUrl) => {
+  return (dispatch, getState) => {
+    const {tags, csrf} = getState();
+    deleteCliperTag(tagId, csrf);
+    const tagObjIndex = getTagIndex(tags, pageUrl);
+    dispatch(deleteTag(tagObjIndex, tagId));
+  }
+};
+
+export const DELETE_TAG = 'DELETE_TAG';
+export const deleteTag = (index, tagId) => {
+  return {
+    type: DELETE_TAG,
+    index,
+    tagId
+  }
+};
+
+const getTagIndex = (tags, pageUrl) => {
+  let tagObjIndex = null;
+  tags.forEach((tagObj, index) => {
+    if (pageUrl === tagObj.pageUrl) {
+      tagObjIndex = index;
+      return;
+    }
+  });
+  return tagObjIndex;
+};
+
+export const postNewTag = (content, pageUrl) => {
+  return (dispatch, getState) => {
+    const {csrf, tags} = getState();
+    const tagObjIndex = getTagIndex(tags, pageUrl);
+    $.ajax({
+      url: '/tag/new',
+      method: 'post',
+      data: {
+        '_csrf': csrf,
+        content,
+        pageUrl
+      },
+      success: (data) => {
+        if (data.success) {
+          dispatch(addTag(tagObjIndex, data.data));
+        }
+      },
+      error: (err) => {}
+    });
+  }
+};

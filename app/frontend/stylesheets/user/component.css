@@ -86,12 +86,12 @@
   padding: 20px 15px;
   color: #888888;
   font-weight: lighter;
-  line-height: 1.5em;
+  line-height: 1.8em;
   font-size: 0.9em;
   position: relative;
 
   &:not(:last-child) {
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1px solid rgb(230, 230, 230);
   }
 
   &:hover {
@@ -99,6 +99,15 @@
       opacity: 1;
       transform: translate(-100%, -50%);
     }
+  }
+}
+
+.cliper_page,
+.content_container {
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &:hover {
+    background-color: rgb(230, 230, 230);
   }
 }
 
@@ -122,7 +131,7 @@
 .cliper_page_title {
   height: 50px;
   width: 100%;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 1px solid rgb(230, 230, 230);
 
   & .cliper_page_container {
     height: 50px;
@@ -163,25 +172,24 @@
 
 .clipers_content_container {
   border-radius: 2px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid rgb(230, 230, 230);
   margin-bottom: 15px;
   transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
   &:hover {
-    border: 1px solid transparent;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+    /*box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);*/
   }
 }
 
 .cliper_page {
   border-radius: 2px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid rgb(230, 230, 230);
   padding: 0 10px;
   position: relative;
   transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
   &:hover {
-    border: 1px solid transparent;
+    /*border: 1px solid transparent;*/
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
 
     & .cliper_operations {
@@ -229,7 +237,7 @@
       transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
       &:not(:last-child) {
-        border-bottom: 1px solid #fafafa;
+        border-bottom: 1px solid rgb(230, 230, 230);
       }
 
       &:hover {
@@ -475,5 +483,41 @@
         background-color: rgba(66, 66, 66, 1);
       }
     }
+  }
+}
+
+/* tags */
+.cliper_tags_container {
+  color: #636363;
+
+  & .cliper_tag {
+    display: inline-block;
+    padding: 5px 5px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #eaeaea;
+    font-size: 12px;
+    margin: 0 5px;
+    border-radius: 2px;
+    transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    &:hover {
+      background-color: #f0f0f0;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+
+      & .tag_delete {
+        visibility: visible;
+      }
+    }
+  }
+
+  & .tag_delete {
+    color: #D32F2F;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+    visibility: hidden;
+    font-size: 16px;
   }
 }

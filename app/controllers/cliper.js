@@ -1,11 +1,11 @@
 import Cliper from '../services/cliper';
-import Comment from '../services/comment';
 
 const all = async (ctx, next) => {
   const userId = ctx.session.userId;
   const loveQuery = ctx.request.query.love;
+  const matchString = ctx.request.query.find;
   const query = loveQuery === 'true' ? {userId, love: true} : {userId};
-  const clipers = await Cliper.getClipers(query);
+  const clipers = await Cliper.getClipers(query, matchString);
   ctx.body = {
     data: clipers,
     success: true
@@ -48,21 +48,10 @@ const updateCliper = async (ctx, next) => {
   };
 };
 
-const getComments = async (ctx, next) => {
-  const cliperId = ctx.params.id;
-  const userId = ctx.session.userId;
-  const comments = await Comment.getComments(cliperId, userId);
-  ctx.body = {
-    success: true,
-    data: comments
-  };
-};
-
 export default {
   all,
   add,
   deleteCliper,
   getCliper,
-  updateCliper,
-  getComments
+  updateCliper
 }

@@ -10,12 +10,20 @@ AV.init({ appId, appKey });
 class Cliper {
   constructor() {}
 
-  async getClipers(queryObj) {
+  cliperQuery(queryObj) {
     const query = new AV.Query(appCliperBD);
     Object.keys(queryObj).forEach((key) => {
       query.equalTo(key, queryObj[key]);
     });
     query.descending('createdAt');
+    return query;
+  }
+
+  async getClipers(queryObj, matchString = null) {
+    const query = this.cliperQuery(queryObj);
+    if (matchString) {
+      query.contains('content', matchString);
+    }
     return await query.find();
   }
 

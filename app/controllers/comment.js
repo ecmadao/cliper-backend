@@ -17,6 +17,16 @@ const newComment = async (ctx, next) => {
   };
 };
 
+const getComments = async (ctx, next) => {
+  const cliperId = ctx.params.id;
+  const userId = ctx.session.userId;
+  const comments = await Comment.getComments(cliperId, userId);
+  ctx.body = {
+    success: true,
+    data: comments
+  };
+};
+
 const deleteComment = async (ctx, next) => {
   const commentId = ctx.params.id;
   const result = await Comment.deleteComment(commentId);
@@ -42,6 +52,7 @@ const updateComment = async (ctx, next) => {
 
 export default {
   newComment,
+  getComments,
   deleteComment,
   updateComment
 }

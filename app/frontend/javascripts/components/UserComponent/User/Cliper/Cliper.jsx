@@ -16,6 +16,7 @@ class Cliper extends React.Component {
     if (e.which === 13) {
       const content = this.tag.value;
       postNewTag(content, cliper.url);
+      this.tag.value = '';
     }
   }
 

@@ -420,16 +420,10 @@ export const handleTagDelete = (tagId, pageUrl) => {
   return (dispatch, getState) => {
     const {tags, csrf} = getState();
     deleteCliperTag(tagId, csrf);
-    let tagObjIndex = null;
-    tags.forEach((tagObj, index) => {
-      if (pageUrl === tagObj.pageUrl) {
-        tagObjIndex = index;
-        return;
-      }
-    });
+    const tagObjIndex = getTagIndex(tags, pageUrl);
     dispatch(deleteTag(tagObjIndex, tagId));
   }
-}
+};
 
 export const DELETE_TAG = 'DELETE_TAG';
 export const deleteTag = (index, tagId) => {
@@ -440,9 +434,21 @@ export const deleteTag = (index, tagId) => {
   }
 };
 
+const getTagIndex = (tags, pageUrl) => {
+  let tagObjIndex = null;
+  tags.forEach((tagObj, index) => {
+    if (pageUrl === tagObj.pageUrl) {
+      tagObjIndex = index;
+      return;
+    }
+  });
+  return tagObjIndex;
+};
+
 export const postNewTag = (content, pageUrl) => {
   return (dispatch, getState) => {
-    const {csrf} = getState();
+    const {csrf, tags} = getState();
+    const tagObjIndex = getTagIndex(tags, pageUrl);
     $.ajax({
       url: '/tag/new',
       method: 'post',
@@ -452,11 +458,11 @@ export const postNewTag = (content, pageUrl) => {
         pageUrl
       },
       success: (data) => {
-        console.log(data);
+        if (data.success) {
+          dispatch(addTag(tagObjIndex, data.data));
+        }
       },
-      error: (err) => {
-
-      }
+      error: (err) => {}
     });
   }
 };

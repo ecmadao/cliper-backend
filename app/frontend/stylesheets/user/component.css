@@ -488,6 +488,8 @@
 
 /* tags */
 .cliper_tags_container {
+  color: #636363;
+
   & .cliper_tag {
     display: inline-block;
     padding: 5px 5px;

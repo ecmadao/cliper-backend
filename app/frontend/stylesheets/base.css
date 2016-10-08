@@ -7,6 +7,21 @@
   border-radius: 2px;
   width: 150px;
   margin-bottom: 15px;
+  transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.input.mini {
+  width: 60px;
+  padding: 2px 5px;
+}
+
+.input.flat {
+  box-shadow: none;
+  border-bottom: 1px solid rgb(230, 230, 230);
+
+  &:focus {
+    border-bottom: 1px solid #3498DB;
+  }
 }
 
 .input.input_large {

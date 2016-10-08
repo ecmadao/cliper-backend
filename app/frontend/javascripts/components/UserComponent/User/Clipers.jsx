@@ -7,7 +7,8 @@ import {
   formatClipers
 } from '../ConstValue';
 import {
-  handleTabChange
+  handleTabChange,
+  postNewTag
 } from '../redux/actions';
 
 class Clipers extends React.Component {
@@ -16,10 +17,14 @@ class Clipers extends React.Component {
   }
 
   renderClipers() {
-    const {clipers} = this.props;
+    const {clipers, postNewTag} = this.props;
     return clipers.map((cliper, index) => {
       return (
-        <Cliper cliper={cliper} key={index}/>
+        <Cliper
+          cliper={cliper}
+          key={index}
+          postNewTag={postNewTag}
+        />
       )
     });
   }
@@ -56,9 +61,9 @@ class Clipers extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {clipers, avtiveTab} = state;
+  const {clipers, avtiveTab, tags} = state;
   return {
-    clipers: formatClipers(clipers),
+    clipers: formatClipers(clipers, tags),
     avtiveTab
   }
 }
@@ -67,6 +72,9 @@ function mapDispatchToProps(dispatch) {
   return {
     handleTabChange: (index) => {
       dispatch(handleTabChange(index));
+    },
+    postNewTag: (content, pageUrl) => {
+      dispatch(postNewTag(content, pageUrl));
     }
   }
 }

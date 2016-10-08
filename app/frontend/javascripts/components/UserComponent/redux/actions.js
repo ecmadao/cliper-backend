@@ -47,7 +47,9 @@ export const fetchClipers = (query = '') => {
       method: 'get',
       success: (data) => {
         if (data.success) {
-          dispatch(resetClipers(data.data));
+          const clipers = data.data;
+          dispatch(resetClipers(clipers));
+          dispatch(getTags(clipers));
         } else {
           message.error('Ops..some error happened');
         }
@@ -345,3 +347,97 @@ export const deleteComment = (commentId) => {
     })
   }
 }
+
+// tags
+const makeInitialTags = (clipers) => {
+  let tagObjs = [];
+  clipers.forEach((cliper) => {
+    const filterClipers = tagObjs.filter((cliperObj) => cliperObj.pageUrl === cliper.url);
+    if (!filterClipers.length) {
+      tagObjs.push({
+        pageUrl: cliper.url,
+        tags: []
+      });
+    }
+  });
+  return tagObjs;
+};
+
+const fetchTags = (pageUrl) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: '/tag/all',
+      method: 'get',
+      data: {
+        pageUrl
+      },
+      success: (data) => {
+        if (data.success) {
+          resolve(data.data);
+        }
+      },
+      error: (err) => {
+        reject(err);
+      }
+    });
+  });
+};
+
+export const getTags = (clipers) => {
+  return (dispatch, getState) => {
+    let tagObjs = makeInitialTags(clipers);
+    Promise.all(tagObjs.map(tagObj => fetchTags(tagObj.pageUrl))).then((resultList) => {
+      resultList.map((tags, index) => {
+        tagObjs[index].tags = tags;
+      });
+      dispatch(resetTags(tagObjs));
+    });
+  }
+};
+
+export const RESET_TAGS = 'RESET_TAGS';
+export const resetTags = (tags) => {
+  return {
+    type: RESET_TAGS,
+    tags
+  }
+};
+
+export const ADD_TAG = 'ADD_TAG';
+export const addTag = (index, tag) => {
+  return {
+    type: ADD_TAG,
+    index,
+    tag
+  }
+};
+
+export const DELETE_TAG = 'DELETE_TAG';
+export const deleteTag = () => {
+  return {
+    type: DELETE_TAG,
+    index,
+    tagId
+  }
+};
+
+export const postNewTag = (content, pageUrl) => {
+  return (dispatch, getState) => {
+    const {csrf} = getState();
+    $.ajax({
+      url: '/tag/new',
+      method: 'post',
+      data: {
+        '_csrf': csrf,
+        content,
+        pageUrl
+      },
+      success: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+
+      }
+    });
+  }
+};

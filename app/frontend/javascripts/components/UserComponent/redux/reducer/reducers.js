@@ -111,6 +111,27 @@ export function comment(comment = DEFAULT_STATE.comment, action) {
   }
 }
 
+export function tags(tags = DEFAULT_STATE.tags, action) {
+  switch (action.type) {
+    case ACTIONS.RESET_TAGS:
+      return [...action.tags];
+    case ACTIONS.ADD_TAG:
+      let tag = tags[action.index];
+      return [...tags.slice(0, action.index), {
+        pageUrl: tag.pageUrl,
+        tags: [...tag.tags, action.tag]
+      }, ...tags.slice(action.index + 1)];
+    case ACTIONS.DELETE_TAG:
+      let targetTag = tags[action.index];
+      return [...tags.slice(0, action.index), {
+        pageUrl: targetTag.pageUrl,
+        tags: targetTag.tags.filter((tag) => tag.objectId !== action.tagId)
+      }, ...tags.slice(action.index + 1)];
+    default:
+      return tags;
+  }
+}
+
 function setState(state, newState) {
   return objectAssign({}, state, newState);
 }

@@ -4,9 +4,10 @@ import CliperOperation from './CliperOperation';
 
 class CliperContent extends React.Component {
   render() {
-    const {cliper} = this.props;
+    const {cliper, active} = this.props;
     const containerClass = classNames('content_container', {
-      'loved': cliper.love
+      'loved': cliper.love,
+      'active': active
     });
     return (
       <div className={containerClass}>

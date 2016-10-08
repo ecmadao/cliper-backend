@@ -4,12 +4,13 @@ import CliperOperation from './CliperOperation';
 
 class CliperPage extends React.Component {
   render() {
-    const {cliper, children} = this.props;
+    const {cliper, children, active} = this.props;
     const {title, url, contents} = cliper;
     const content = contents.slice(-1)[0];
     const cliperObj = content.clipers[0];
     const cliperPageClass = classNames('cliper_page', {
-      'loved': cliperObj.love
+      'loved': cliperObj.love,
+      'active': active
     });
     return (
       <div className={cliperPageClass}>

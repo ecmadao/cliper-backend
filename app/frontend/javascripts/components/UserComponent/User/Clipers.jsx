@@ -18,7 +18,13 @@ class Clipers extends React.Component {
   }
 
   renderClipers() {
-    const {clipers, postNewTag, deleteTag} = this.props;
+    const {
+      clipers,
+      postNewTag,
+      deleteTag,
+      currentCliper,
+      commentModalActive
+    } = this.props;
     return clipers.map((cliper, index) => {
       return (
         <Cliper
@@ -26,6 +32,8 @@ class Clipers extends React.Component {
           key={index}
           postNewTag={postNewTag}
           deleteTag={deleteTag}
+          currentCliper={currentCliper}
+          commentModalActive={commentModalActive}
         />
       )
     });
@@ -63,10 +71,13 @@ class Clipers extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {clipers, avtiveTab, tags} = state;
+  const {clipers, avtiveTab, tags, comment} = state;
+  const {currentCliper, commentModalActive} = comment;
   return {
     clipers: formatClipers(clipers, tags),
-    avtiveTab
+    avtiveTab,
+    currentCliper,
+    commentModalActive
   }
 }
 

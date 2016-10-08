@@ -52,14 +52,16 @@ class Cliper extends React.Component {
   }
 
   renderCliper() {
-    const {cliper} = this.props;
+    const {cliper, currentCliper, commentModalActive} = this.props;
     const {contents} = cliper;
     const checkHasContent = contents.some((contentObj) => contentObj.hasContent);
     if (contents && contents.length && checkHasContent) {
       return this.renderCliperContent();
     }
     return (
-      <CliperPage cliper={cliper}>
+      <CliperPage
+        cliper={cliper}
+        active={cliper.id === currentCliper && commentModalActive}>
         {this.renderCliperTag()}
       </CliperPage>
     )
@@ -82,11 +84,14 @@ class Cliper extends React.Component {
   }
 
   renderCliperContents(contents) {
+    const {currentCliper, commentModalActive} = this.props;
     return contents.map((cliperObj, index) => {
       return (
         <CliperContents
           key={index}
           cliperContent={cliperObj}
+          currentCliper={currentCliper}
+          commentModalActive={commentModalActive}
         />
       )
     });

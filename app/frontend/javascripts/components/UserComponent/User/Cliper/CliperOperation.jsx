@@ -81,30 +81,35 @@ class CliperOperation extends React.Component {
         className="cliper_operations"
         ref={ref => this.operations = ref}>
         <div className="cliper_operations_container">
-          <i
-            className="fa fa-ellipsis-h cliper_operation"
-            aria-hidden="true"
-            onClick={this.showOperationMenu}></i>
-          <i
-            className={starIconClass}
-            aria-hidden="true"
+          <div
+            className="cliper_operation_wrapper"
+            onClick={this.showOperationMenu}>
+            <i
+              className="fa fa-ellipsis-h cliper_operation"
+              aria-hidden="true"></i>
+          </div>
+          <div
+            className="cliper_operation_wrapper"
             onClick={() => {
               changeLoveStatus(id, !love);
-            }}></i>
-          <i
-            className="fa fa-comment-o cliper_operation"
-            aria-hidden="true"
-            onClick={() => {
-              openCommentModal(id);
-            }}></i>
+            }}>
+            <i
+              className={starIconClass}
+              aria-hidden="true"></i>
+          </div>
           <div
             className={menuClass}
             id="operations_menu"
             ref={ref => this.menu = ref}>
             <div className="menu_operation" onClick={() => {
+              openCommentModal(id);
+            }}>
+              <i className="fa fa-comment-o"></i>&nbsp;备注
+            </div>
+            <div className="menu_operation" onClick={() => {
               deleteCliper(id);
-              }}>
-              <i className="fa fa fa-trash"></i>&nbsp;删除
+            }}>
+              <i className="fa fa-trash"></i>&nbsp;删除
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ export const TABS = {
   love: '已标记'
 };
 
-export const formatClipers = (clipers) => {
+export const formatClipers = (clipers, tags) => {
   let cliperObjs = [];
   clipers.forEach((cliper) => {
     const filterClipers = cliperObjs.filter((cliperObj) => cliperObj.url === cliper.url);
@@ -31,13 +31,15 @@ export const formatClipers = (clipers) => {
         filterCliper.contents.push(newContentObj);
       }
     } else {
+      const filteredTags = tags.filter((tagObj) => tagObj.pageUrl === cliper.url);
       const newCliper = {
         title: cliper.title,
         url: cliper.url,
+        tags: (filteredTags[0] && filteredTags[0].tags) || [],
         contents: [newContentObj]
       };
       cliperObjs.push(newCliper);
     }
   });
-  return cliperObjs
+  return cliperObjs;
 };

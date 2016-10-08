@@ -197,7 +197,7 @@
   top: 50%;
   opacity: 0;
   height: 100%;
-  width: 85px;
+  width: 90px;
   padding-left: 15px;
   transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
   transform: translate(0%, -50%);
@@ -210,13 +210,15 @@
     bottom: 0px;
     left: -10px;
     opacity: 0;
-    z-index: -1;
+    visibility: hidden;
+    z-index: -9;
     transform: translateY(100%);
     transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
     &.active {
       opacity: 1;
       z-index: 1;
+      visibility: visible;
     }
 
     & .menu_operation {
@@ -240,7 +242,6 @@
   & .cliper_operations_container {
     position: absolute;
     top: 50%;
-    width: 85px;
     transform: translateY(-50%);
 
     &::after {
@@ -249,15 +250,33 @@
       clear: both;
     }
 
-    & .cliper_operation {
+    & .cliper_operation_wrapper {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 1px -1px 1px 0 rgba(0, 0, 0, 0.04), 0 1px 0 0 rgba(0, 0, 0, 0.05), -1px 1px 0 0 rgba(0, 0, 0, 0.03);
+      margin-right: 10px;
       float: left;
       cursor: pointer;
+      position: relative;
+      transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      &:hover {
+        background-color: #f0f0f0;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    & .cliper_operation {
       font-size: 18px;
-      margin-right: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     & .cliper_love {
-      /*margin-right: 10px;*/
       margin-top: 1px;
 
       &:hover {

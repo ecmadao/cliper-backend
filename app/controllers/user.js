@@ -1,4 +1,5 @@
 import User from '../services/user';
+import Cliper from '../services/cliper';
 import SendCloud from '../services/sendcloud';
 import {
   getHiddenEmail,
@@ -10,14 +11,23 @@ const getUserInfo = (ctx) => {
   return [requestData.email, requestData.password];
 };
 
+const getClipersNum = async (userId) => {
+  return await Promise.all([
+    Cliper.getUserClipersNum(userId), Cliper.getUserPagesNum(userId)
+  ]);
+}
+
 const home = async (ctx, next) => {
   const user = ctx.session.user;
+  const userId = ctx.session.userId;
   const {username, email, createdAt} = user;
   const name = checkIsEmail(username) ? getHiddenEmail(email) : username;
+  const [clipersNum, pagesNum] = await getClipersNum(userId);
   const userInfo = {
     username: name,
     email: getHiddenEmail(email),
-    joinedAt: createdAt
+    joinedAt: createdAt,
+    clipersNum: `${clipersNum} clipers, ${pagesNum} pages`
   };
   await ctx.render('home/user', {
     title: '个人主页',
@@ -69,10 +79,20 @@ const checkEmail = async (ctx, next) => {
   };
 };
 
+const userInfo = async (ctx, next) => {
+  const userId = ctx.params.id;
+  const [clipersNum, pagesNum] = await getClipersNum(userId);
+  ctx.body = {
+    success: true,
+    data: `${clipersNum} clipers, ${pagesNum} pages`
+  };
+};
+
 export default {
   login,
   logout,
   signup,
   home,
+  userInfo,
   checkEmail
 }

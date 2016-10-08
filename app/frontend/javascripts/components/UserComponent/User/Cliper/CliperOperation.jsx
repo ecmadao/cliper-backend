@@ -16,7 +16,6 @@ class CliperOperation extends React.Component {
     };
     this.showOperationMenu = this.showOperationMenu.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
-    this.handleOutside = this.handleOutside.bind(this);
   }
 
   showOperationMenu() {
@@ -27,31 +26,25 @@ class CliperOperation extends React.Component {
 
   componentDidMount() {
     if (document.addEventListener) {
-      document.addEventListener('click', this.handleOutside, true);
-      // document.addEventListener('mouseover', this.handleOutside, true);
+      document.addEventListener('click', this.handleOutsideClick, true);
     } else {
-      document.attachEvent('click', this.handleOutside);
-      // document.attachEvent('mouseover', this.handleOutside);
+      document.attachEvent('click', this.handleOutsideClick);
     }
   }
 
-  handleOutside(e) {
-    e = e || window.event;
-    const mouseTarget = (typeof e.which !== "undefined") ? e.which : e.button;
-    const isDescendantOfRoot = ReactDOM.findDOMNode(this.menu).contains(e.target);
-    // const isHoverDescendantOfRoot = ReactDOM.findDOMNode(this.operations).contains(e.target);
-    if (!isDescendantOfRoot) {
-      this.setState({
-        showMore: false
-      });
+  componentWillUnmount() {
+    if (document.removeEventListener) {
+      document.removeEventListener('click', this.handleOutsideClick, true);
+    } else {
+      document.detachEvent('click', this.handleOutsideClick);
     }
   }
 
   handleOutsideClick(e) {
     e = e || window.event;
     const mouseTarget = (typeof e.which !== "undefined") ? e.which : e.button;
-    // const isDescendantOfRoot = document.getElementById('operations_menu').contains(e.target);
-    const isDescendantOfRoot = ReactDOM.findDOMNode(this.menu).contains(e.target);
+    const menu = ReactDOM.findDOMNode(this.menu);
+    const isDescendantOfRoot = menu && menu.contains(e.target);
     if (!isDescendantOfRoot) {
       this.setState({
         showMore: false

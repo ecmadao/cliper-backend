@@ -46,6 +46,20 @@ class Cliper {
     await cliper.save();
     return true;
   }
+
+  async getUserClipersNum(userId) {
+    const query = new AV.Query(appCliperBD);
+    query.equalTo('userId', userId);
+    query.notEqualTo('content', "");
+    return await query.count();
+  }
+
+  async getUserPagesNum(userId) {
+    const query = new AV.Query(appCliperBD);
+    query.equalTo('userId', userId);
+    query.equalTo('content', "");
+    return await query.count();
+  }
 }
 
 module.exports = new Cliper();

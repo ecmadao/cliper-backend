@@ -7,6 +7,7 @@ const router = koaRouter({
 });
 
 router.post('/new', checkIfLogin(), comment.newComment);
+router.get('/:id', checkIfLogin(), comment.getComments);
 router.delete('/:id', checkIfLogin(), comment.deleteComment);
 router.put('/:id', checkIfLogin(), comment.updateComment);
 

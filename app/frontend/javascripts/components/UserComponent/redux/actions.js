@@ -226,7 +226,7 @@ export const addCliperComment = (comment) => {
 export const fetchCliperComments = (cliperId) => {
   return (dispatch, getState) => {
     $.ajax({
-      url: `/cliper/${cliperId}/comments`,
+      url: `/comment/${cliperId}`,
       method: 'get',
       success: (data) => {
         let result = data.data;

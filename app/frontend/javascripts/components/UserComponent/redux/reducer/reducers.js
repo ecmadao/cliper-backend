@@ -42,10 +42,6 @@ export function cliper(cliper = DEFAULT_STATE.cliper, action) {
       return setState(cliper, {
         tags: [...cliper.tags, action.tag]
       });
-    case ACTIONS.DELETE_CLIPER_TAG:
-      return setState(cliper, {
-        tags: cliper.tags.filter((tag) => tag.id !== action.tagId)
-      });
     default:
       return cliper;
   }

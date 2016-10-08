@@ -19,12 +19,16 @@ class Cliper extends React.Component {
     }
   }
 
-  renderTags(tags) {
+  renderTags() {
+    const {cliper, deleteTag} = this.props;
+    const {tags, url} = cliper;
     return tags.map((tagObj, index) => {
       return (
         <CliperTag
+          url={url}
           tag={tagObj}
           key={index}
+          deleteTag={deleteTag}
         />
       );
     });
@@ -51,7 +55,8 @@ class Cliper extends React.Component {
           </a>
         </div>
         <div className="cliper_tags_container">
-          {this.renderTags(cliper.tags)}
+          <i className="fa fa-tags" aria-hidden="true"></i>
+          {this.renderTags()}
           <input
             className="input mini flat"
             type="text"

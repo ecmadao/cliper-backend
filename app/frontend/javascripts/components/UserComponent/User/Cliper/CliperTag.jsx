@@ -7,17 +7,18 @@ class CliperTag extends React.Component {
   }
 
   deleteTag() {
-    const {tag} = this.props;
-    console.log(tag.objectId);
+    const {deleteTag, tag, url} = this.props;
+    deleteTag && deleteTag(tag.objectId, url);
   }
 
   render() {
     const {tag} = this.props;
     return (
-      <div
-        onClick={this.deleteTag}
-        className="cliper_tag">
+      <div className="cliper_tag">
         {tag.content}
+        <i
+          className="fa fa-times-circle-o tag_delete"
+          onClick={this.deleteTag}></i>
       </div>
     )
   }

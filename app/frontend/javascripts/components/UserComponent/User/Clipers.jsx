@@ -8,7 +8,8 @@ import {
 } from '../ConstValue';
 import {
   handleTabChange,
-  postNewTag
+  postNewTag,
+  handleTagDelete
 } from '../redux/actions';
 
 class Clipers extends React.Component {
@@ -17,13 +18,14 @@ class Clipers extends React.Component {
   }
 
   renderClipers() {
-    const {clipers, postNewTag} = this.props;
+    const {clipers, postNewTag, deleteTag} = this.props;
     return clipers.map((cliper, index) => {
       return (
         <Cliper
           cliper={cliper}
           key={index}
           postNewTag={postNewTag}
+          deleteTag={deleteTag}
         />
       )
     });
@@ -75,6 +77,9 @@ function mapDispatchToProps(dispatch) {
     },
     postNewTag: (content, pageUrl) => {
       dispatch(postNewTag(content, pageUrl));
+    },
+    deleteTag: (tagId, pageUrl) => {
+      dispatch(handleTagDelete(tagId, pageUrl));
     }
   }
 }

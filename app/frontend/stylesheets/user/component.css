@@ -490,17 +490,32 @@
 .cliper_tags_container {
   & .cliper_tag {
     display: inline-block;
-    padding: 2px 5px;
+    padding: 5px 5px;
     cursor: pointer;
     position: relative;
     border: 1px solid #eaeaea;
     font-size: 12px;
-    margin-right: 10px;
+    margin: 0 5px;
     border-radius: 2px;
     transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
 
     &:hover {
+      background-color: #f0f0f0;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.12), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+
+      & .tag_delete {
+        visibility: visible;
+      }
     }
+  }
+
+  & .tag_delete {
+    color: #D32F2F;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+    visibility: hidden;
+    font-size: 16px;
   }
 }

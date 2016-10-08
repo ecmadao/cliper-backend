@@ -184,14 +184,6 @@ export const addCliperTag = (tag) => {
   }
 };
 
-export const DELETE_CLIPER_TAG = 'DELETE_CLIPER_TAG';
-export const deleteCliperTag = (tagId) => {
-  return {
-    type: DELETE_CLIPER_TAG,
-    tagId
-  }
-};
-
 // comment
 export const CHANGE_COMMENT_MODAL_STATUS = 'CHANGE_COMMENT_MODAL_STATUS';
 export const changeCommentModalStatus = (status) => {
@@ -412,8 +404,35 @@ export const addTag = (index, tag) => {
   }
 };
 
+const deleteCliperTag = (tagId, csrf) => {
+  $.ajax({
+    url: `/tag/${tagId}`,
+    method: 'delete',
+    data: {
+      '_csrf': csrf
+    },
+    success: (data) => {},
+    error: (err) => {}
+  });
+};
+
+export const handleTagDelete = (tagId, pageUrl) => {
+  return (dispatch, getState) => {
+    const {tags, csrf} = getState();
+    deleteCliperTag(tagId, csrf);
+    let tagObjIndex = null;
+    tags.forEach((tagObj, index) => {
+      if (pageUrl === tagObj.pageUrl) {
+        tagObjIndex = index;
+        return;
+      }
+    });
+    dispatch(deleteTag(tagObjIndex, tagId));
+  }
+}
+
 export const DELETE_TAG = 'DELETE_TAG';
-export const deleteTag = () => {
+export const deleteTag = (index, tagId) => {
   return {
     type: DELETE_TAG,
     index,

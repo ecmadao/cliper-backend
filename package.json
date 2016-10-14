@@ -16,7 +16,7 @@
     "pm2": "NODE_ENV=production ./node_modules/.bin/pm2 start index.js -i 2 --name \"cliper\" --max-memory-restart 300M --merge-logs --log-date-format=\"YYYY-MM-DD HH:mm Z\" --output=\"log/production.log\"",
     "pm2:restart": "NODE_ENV=production ./node_modules/.bin/pm2 restart \"cliper\"",
     "pm2:stop": "NODE_ENV=production ./node_modules/.bin/pm2 stop \"cliper\"",
-    "pm2:logs": "NODE_ENV=production ./node_modules/.bin/pm2 logs \"cliper\"",
+    "pm2:logs": "NODE_ENV=production ./node_modules/.bin/pm2 logs \"cliper\""
   },
   "engines": {
     "node": "5.9.1"

@@ -21,11 +21,15 @@ entryFiles
     entries[filename] = filepath;
 });
 
+const env = process.env.NODE_ENV || 'development';
+const assetHost = env === "production" ? "http://cliper.com.cn" : "";
+
 module.exports = {
   context: PATH.ROOT_PATH,
   entry: entries,
   output: {
     path: PATH.BUILD_PATH,
+    publicPath: assetHost + '/assets/',
     filename: "[name].bundle.js",
   },
   resolve: {

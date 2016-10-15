@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import LoadingModal from '../../LoadingModal/index';
 import Clipers from './Clipers';
 import CliperComments from './CliperComments/index';
+import EmptyComponent from '../../EmptyComponent/index';
 
 import {
   getClipersByQuery,
@@ -20,16 +21,18 @@ class User extends React.Component {
     const {getClipersByQuery} = this.props;
     getClipersByQuery && getClipersByQuery();
     const $sliperSearch = $('.cliper_search');
-    const sliperSearchTop = $sliperSearch.offset().top;
-    const $document = $(document);
-    $(window).scroll(() => {
-      let currentTop = $document.scrollTop();
-      if (currentTop > sliperSearchTop) {
-        $sliperSearch.addClass('search_in_top');
-      } else {
-        $sliperSearch.removeClass('search_in_top');
-      }
-    });
+    if ($sliperSearch.length) {
+      const sliperSearchTop = $sliperSearch.offset().top;
+      const $document = $(document);
+      $(window).scroll(() => {
+        let currentTop = $document.scrollTop();
+        if (currentTop > sliperSearchTop) {
+          $sliperSearch.addClass('search_in_top');
+        } else {
+          $sliperSearch.removeClass('search_in_top');
+        }
+      });
+    }
   }
 
   handleKeyDown(e) {
@@ -46,7 +49,10 @@ class User extends React.Component {
   }
 
   render() {
-    const {loading, search} = this.props;
+    const {loading, search, clipers} = this.props;
+    if (!clipers.length) {
+      return (<EmptyComponent />);
+    }
     return (
       <div className="user_component">
         <LoadingModal showModal={false} />

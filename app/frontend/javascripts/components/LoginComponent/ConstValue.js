@@ -41,7 +41,7 @@ const passwordInput = {
 const repeatPasswordInput = {
   placeholder: '重复输入密码',
   type: 'password',
-  validator: validatePassword,
+  validator: checkIfIsValidate(validatePassword, '请输入8~16位的密码'),
   ref: REPEAT_PASSWORD
 };
 

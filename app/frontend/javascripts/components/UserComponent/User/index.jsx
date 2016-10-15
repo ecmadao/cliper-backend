@@ -56,7 +56,12 @@ class User extends React.Component {
   render() {
     const {loading, search, clipers} = this.props;
     if (!clipers.length) {
-      return (<EmptyComponent />);
+      return (
+        <div>
+          <LoadingModal showModal={loading} />
+          <EmptyComponent />
+        </div>
+      );
     }
     return (
       <div className="user_component">

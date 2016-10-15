@@ -27,7 +27,8 @@ const home = async (ctx, next) => {
     username: name,
     email: getHiddenEmail(email),
     joinedAt: createdAt,
-    clipersNum: `${clipersNum} clipers, ${pagesNum} pages`
+    clipersNum: clipersNum,
+    pagesNum: pagesNum
   };
   await ctx.render('home/user', {
     title: '个人主页 - cliper',

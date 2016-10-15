@@ -22,7 +22,7 @@
         <br/>
         <br/>
         <span class="user_cliper_num">
-          {{ userInfo.clipersNum }}
+          {{ userInfo.clipersNum }} clipers, {{ userInfo.pagesNum }} pages
         </span>
       </div>
     </div>
@@ -31,5 +31,8 @@
 {% endblock %}
 
 {% block js %}
+  <script>
+    window.hasClipers = {{ userInfo.clipersNum + userInfo.pagesNum }}
+  </script>
   <script src="{{ assetsPath("user.js") }}"></script>
 {% endblock %}

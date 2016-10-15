@@ -29,6 +29,7 @@ export const changeActiveTab = (tab) => {
 export const getClipersByQuery = (tab = null) => {
   return (dispatch, getState) => {
     const {search, avtiveTab} = getState();
+    dispatch(changeLoadingStatus(true));
     if (tab === null) {
       tab = avtiveTab;
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Message from '../../../common/message';
 const message = new Message();
 
@@ -25,6 +26,30 @@ class LoginForm extends React.Component {
     }, 500);
   }
 
+  validateInput(ref) {
+    const {inputs} = this.props;
+    const filteredInput = inputs.filter(input => input.ref === ref);
+    if (filteredInput && filteredInput.length) {
+      const value = this.refs[ref].value;
+      const result = filteredInput[0].validator(value);
+      if (!result.result) {
+        const inputDOM = ReactDOM.findDOMNode(this.refs[ref]);
+        this.inputAnimation(inputDOM);
+        message.error(result.message);
+      }
+      return result.result;
+    }
+    message.error('找不到指定对象');
+    return false;
+  }
+
+  inputAnimation(target) {
+    $(target).addClass('animation');
+    setTimeout(() => {
+      $(target).removeClass('animation');
+    }, 500);
+  }
+
   validateCanStepChange() {
     const {inputs, loginInfo} = this.props;
     const validateResults = inputs.map((loginInput) => {
@@ -48,7 +73,7 @@ class LoginForm extends React.Component {
   }
 
   handleBlur(inputRef) {
-    if (inputRef === 'email' && this.validateCanStepChange()) {
+    if (inputRef === 'email' && this.validateInput(inputRef)) {
       const {checkEmailExist} = this.props;
       checkEmailExist && checkEmailExist();
     }
@@ -77,6 +102,10 @@ class LoginForm extends React.Component {
 
   handleKeyDown(e, inputRef) {
     if (e.which === 13) {
+      const validateResult = this.validateInput(inputRef);
+      if (!validateResult) {
+        return false;
+      }
       let $nextForm = $(e.target).next('.login_input');
       if ($nextForm && $nextForm.length) {
         $nextForm.focus();
@@ -97,9 +126,6 @@ class LoginForm extends React.Component {
         return;
       }
       if (inputRef === 'email') {
-        if (!this.validateCanStepChange()) {
-          return;
-        }
         checkEmailExist().then(() => {
           this.handleStepChange(step + 1);
         });

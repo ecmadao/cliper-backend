@@ -1,0 +1,24 @@
+.empty_wrapper {
+  width: 100%;
+  min-height: 400px;
+  position: relative;
+}
+
+.empty_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  & span {
+    color: #8c8c8c;
+  }
+}
+
+.empty_icon {
+  width: 140px;
+  height: 128px;
+  margin-left: auto;
+  margin-right: auto;
+  background: url('../../../images/cliper.png') no-repeat center;
+}

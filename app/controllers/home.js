@@ -11,7 +11,7 @@ const csrf = async (ctx, next) => {
 
 const login = async (ctx, next) => {
   await ctx.render('home/login', {
-    title: 'login page'
+    title: '登录 - cliper'
   });
 };
 

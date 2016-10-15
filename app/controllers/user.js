@@ -30,7 +30,7 @@ const home = async (ctx, next) => {
     clipersNum: `${clipersNum} clipers, ${pagesNum} pages`
   };
   await ctx.render('home/user', {
-    title: '个人主页',
+    title: '个人主页 - cliper',
     userInfo
   });
 };

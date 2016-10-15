@@ -20,8 +20,13 @@ class User extends React.Component {
   componentDidMount() {
     const {getClipersByQuery} = this.props;
     getClipersByQuery && getClipersByQuery();
-    const $sliperSearch = $('.cliper_search');
-    if ($sliperSearch.length) {
+  }
+
+  componentDidUpdate(preProps) {
+    const {clipers} = this.props;
+    const preClipers = preProps.clipers;
+    if (!preClipers.length && clipers.length) {
+      const $sliperSearch = $('.cliper_search');
       const sliperSearchTop = $sliperSearch.offset().top;
       const $document = $(document);
       $(window).scroll(() => {

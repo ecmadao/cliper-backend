@@ -1,7 +1,7 @@
 {
   "name": "cliper-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A website to visit your clipers.",
   "main": "index.js",
   "scripts": {
     "start_app": "./node_modules/.bin/nodemon index.js",

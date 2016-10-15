@@ -55,7 +55,7 @@ class User extends React.Component {
     }
     return (
       <div className="user_component">
-        <LoadingModal showModal={false} />
+        <LoadingModal showModal={loading} />
         <CliperComments />
         <div className="cliper_search">
           <input

@@ -1,7 +1,7 @@
 {
   "name": "cliper-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A website to visit your clipers.",
   "main": "index.js",
   "scripts": {
     "start_app": "./node_modules/.bin/nodemon index.js",
@@ -12,7 +12,7 @@
     "build_pro": "./node_modules/webpack/bin/webpack.js --config config/webpack/webpack.production.js -p",
     "test": "echo \"Error: no test specified\" && exit 1",
     "add_assets": "export NODE_ENV=production && npm run build_pro",
-    "deploy": "npm run add_assets && npm run pm2",
+    "deploy": "git pull origin master && npm run add_assets && npm run pm2",
     "pm2": "NODE_ENV=production ./node_modules/.bin/pm2 start index.js -i 2 --name \"cliper\" --max-memory-restart 300M --merge-logs --log-date-format=\"YYYY-MM-DD HH:mm Z\" --output=\"log/production.log\"",
     "pm2:restart": "NODE_ENV=production ./node_modules/.bin/pm2 restart \"cliper\"",
     "pm2:stop": "NODE_ENV=production ./node_modules/.bin/pm2 stop \"cliper\"",

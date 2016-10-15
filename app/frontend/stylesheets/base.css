@@ -13,6 +13,7 @@
 .input.mini {
   width: 60px;
   padding: 5px 5px;
+  font-size: 0.8em;
 }
 
 .input.flat {

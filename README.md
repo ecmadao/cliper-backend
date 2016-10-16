@@ -1,4 +1,4 @@
-# Cliper
+![cliper](./readme/cliper.png)
 
 A website to visit your clipers. Visit this: [cliper](http://cliper.com.cn). Also, if your are looking for a chrome extension to save paragraphs you like on websites, you may need this: [cliper chrome extension](https://chrome.google.com/webstore/detail/biijehenaabpogldekblkfgooifmagbi)
 

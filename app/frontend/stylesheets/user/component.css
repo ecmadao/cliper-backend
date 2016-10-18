@@ -233,7 +233,10 @@
     }
 
     & .menu_operation {
-      padding: 3px 13px;
+      padding: 3px 13px !important;
+      color: #888;
+      font-weight: lighter;
+      line-height: 1.8em;
       font-size: 12px;
       cursor: pointer;
       background-color: transparent;

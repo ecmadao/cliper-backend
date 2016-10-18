@@ -7,6 +7,12 @@ const appTagBD = config.get('leancloud.appTagBD');
 AV.init({ appId, appKey });
 
 class Tag {
+  async allTags(userId) {
+    const query = new AV.Query(appTagBD);
+    query.equalTo('userId', userId);
+    return await query.find();
+  }
+
   async getTags(pageUrl, userId) {
     const query = new AV.Query(appTagBD);
     query.equalTo('userId', userId);

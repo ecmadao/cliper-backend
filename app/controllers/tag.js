@@ -20,7 +20,7 @@ const newTag = async (ctx, next) => {
 const getTags = async (ctx, next) => {
   const pageUrl = ctx.request.query.pageUrl
   const userId = ctx.session.userId;
-  let tags = await Tag.getTags(pageUrl, userId);
+  const tags = await Tag.getTags(pageUrl, userId);
   ctx.body = {
     success: true,
     data: tags
@@ -36,8 +36,24 @@ const deleteTag = async (ctx, next) => {
   };
 };
 
+const allTags = async (ctx, next) => {
+  const userId = ctx.session.userId;
+  const tags = await Tag.allTags(userId);
+  const allTags = [];
+  tags.forEach((tag, index) => {
+    if (!allTags.some(existTag => existTag.id === tag.id)){
+      allTags.push(tag);
+    }
+  });
+  ctx.body = {
+    success: true,
+    data: allTags
+  };
+};
+
 export default {
   newTag,
   getTags,
-  deleteTag
+  deleteTag,
+  allTags
 }

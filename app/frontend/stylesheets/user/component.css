@@ -20,6 +20,7 @@
   & input.search_input {
     margin-bottom: 0 !important;
     width: 600px;
+    padding-left: 30px;
     transition: all 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
@@ -29,6 +30,17 @@
     right: 15px;
     transform: translateY(-50%);
     cursor: pointer;
+  }
+
+  & .filter_list_wrapper {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 10px;
+  }
+
+  & .item_chosed_wrapper {
+    width: 30px !important;
   }
 }
 

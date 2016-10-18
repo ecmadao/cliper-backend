@@ -2,12 +2,17 @@ import React from 'react';
 
 class ListItem extends React.Component {
   render() {
-    const {item, handleChose} = this.props;
+    const {item, handleChose, active, handleUnchose} = this.props;
+    const itemClass = active ? "list_item active" : "list_item";
     return (
       <div
-        className="list_item"
+        className={itemClass}
         onClick={() => {
-          handleChose(item.id);
+          if (active) {
+            handleUnchose(item.id);
+          } else {
+            handleChose(item.id);
+          }
         }}
       >
         <i className="fa fa-tag" aria-hidden="true"></i>&nbsp;

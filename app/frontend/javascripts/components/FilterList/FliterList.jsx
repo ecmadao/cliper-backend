@@ -38,6 +38,11 @@ class FilterList extends React.Component {
     }
   }
 
+  checkListMode() {
+    const {mode} = this.props;
+    return mode === 'showActive';
+  }
+
   handleKeyDown() {
     const value = this.search.value;
     if (value) {
@@ -82,8 +87,9 @@ class FilterList extends React.Component {
     const targetItem = items.filter(item => item.id === id);
     if (targetItem && targetItem.length) {
       const newActiveItems = [...activeItems, targetItem[0]];
+      const newItems = this.checkListMode() ? items.filter(item => item.id !== id) : items;
       this.setState({
-        items: items.filter(item => item.id !== id),
+        items: newItems,
         activeItems: newActiveItems
       });
       this.handleActiveItemsChange(newActiveItems);
@@ -125,13 +131,15 @@ class FilterList extends React.Component {
   }
 
   renderItems() {
-    const {items} = this.state;
+    const {items, activeItems} = this.state;
     return items.map((item, index) => {
       return (
         <ListItem
           key={index}
           item={item}
+          active={activeItems.some(activeItem => activeItem.id === item.id)}
           handleChose={this.handleItemChose}
+          handleUnchose={this.handleItemUnchose}
         />
       );
     });
@@ -163,7 +171,7 @@ class FilterList extends React.Component {
               this.handleModalStatusChange(true);
             }}
           ></i>&nbsp;
-          {this.renderActiveItems()}
+          {this.checkListMode() ? this.renderActiveItems() : ''}
         </div>
         <div className={listWrapperClass} ref={ref => this.modal = ref}>
           <div className="list_search_wrapper">

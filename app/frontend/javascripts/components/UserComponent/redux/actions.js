@@ -356,6 +356,14 @@ const makeInitialTags = (clipers) => {
   return tagObjs;
 };
 
+export const RESET_ACTIVE_TAGS = 'RESET_ACTIVE_TAGS';
+export const resetActiveTags = (activeTags) => {
+  return {
+    activeTags,
+    type: RESET_ACTIVE_TAGS
+  }
+};
+
 const fetchTags = (data) => {
   return new Promise((resolve, reject) => {
     $.ajax({

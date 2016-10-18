@@ -128,6 +128,15 @@ export function tags(tags = DEFAULT_STATE.tags, action) {
   }
 }
 
+export function activeTags(activeTags = DEFAULT_STATE.activeTags, action) {
+  switch (action.type) {
+    case ACTIONS.RESET_ACTIVE_TAGS:
+      return [...action.activeTags];
+    default:
+      return activeTags;
+  }
+}
+
 function setState(state, newState) {
   return objectAssign({}, state, newState);
 }

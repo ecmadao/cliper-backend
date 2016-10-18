@@ -1,6 +1,7 @@
 export const DEFAULT_STATE = {
   clipers: [],
   tags: [],
+  activeTags: [],
   cliper: {
     url: '',
     id: null,

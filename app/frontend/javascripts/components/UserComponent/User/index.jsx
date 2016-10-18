@@ -7,39 +7,9 @@ import FilterList from '../../FilterList/index';
 
 import {
   getClipersByQuery,
-  changeSearchContent
+  changeSearchContent,
+  resetActiveTags
 } from '../redux/actions';
-
-const ITEMS = [
-  {
-    value: 'javascript',
-    id: 1
-  },
-  {
-    value: 'Django',
-    id: 2
-  },
-  {
-    value: 'postcss',
-    id: 3
-  },
-  {
-    value: 'java',
-    id: 4
-  },
-  {
-    value: 'webpack',
-    id: 5
-  },
-  {
-    value: 'react',
-    id: 6
-  },
-  {
-    value: 'python',
-    id: 7
-  }
-];
 
 class User extends React.Component {
   constructor(props) {
@@ -100,13 +70,18 @@ class User extends React.Component {
   }
 
   render() {
-    const {loading, search, clipers} = this.props;
+    const {loading, search, resetActiveTags} = this.props;
     return (
       <div className="user_component">
         <LoadingModal showModal={loading} />
         <CliperComments />
         <div className="cliper_search">
-          <FilterList items={this.getValidateTags()}/>
+          <FilterList
+            items={this.getValidateTags()}
+            onChange={(tags) => {
+              resetActiveTags(tags);
+            }}
+          />
           <input
             placeholder="search.."
             value={search}
@@ -129,8 +104,8 @@ class User extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {clipers, loading, search, tags} = state;
-  return {clipers, loading, search, tags};
+  const {loading, search, tags} = state;
+  return {loading, search, tags};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -140,6 +115,9 @@ function mapDispatchToProps(dispatch) {
     },
     getClipersByQuery: () => {
       dispatch(getClipersByQuery());
+    },
+    resetActiveTags: (tags) => {
+      dispatch(resetActiveTags(tags));
     }
   }
 }

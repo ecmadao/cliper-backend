@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import Cliper from './Cliper/index';
 import {
   TABS,
-  formatClipers
+  formatClipers,
+  filterClipersByTag
 } from '../ConstValue';
 import {
   handleTabChange,
@@ -71,10 +72,11 @@ class Clipers extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {clipers, avtiveTab, tags, comment} = state;
+  const {clipers, avtiveTab, tags, comment, activeTags} = state;
   const {currentCliper, commentModalActive} = comment;
+  const formatCliperObjs = formatClipers(clipers, tags);
   return {
-    clipers: formatClipers(clipers, tags),
+    clipers: filterClipersByTag(formatCliperObjs, activeTags),
     avtiveTab,
     currentCliper,
     commentModalActive

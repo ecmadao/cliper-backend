@@ -109,8 +109,9 @@ class FilterList extends React.Component {
     const targetItem = activeItems.filter(activeItem => activeItem.value === value);
     if (targetItem && targetItem.length) {
       const newActiveItems = activeItems.filter(activeItem => activeItem.value !== value);
+      const newItems = this.checkListMode() ? [...items, targetItem[0]] : items;
       this.setState({
-        items: [...items, targetItem[0]],
+        items: newItems,
         activeItems: newActiveItems
       });
       this.handleActiveItemsChange(newActiveItems);

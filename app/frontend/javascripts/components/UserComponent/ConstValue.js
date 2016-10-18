@@ -3,6 +3,20 @@ export const TABS = {
   love: '已标记'
 };
 
+const checkIfHasTag = (tags) => {
+  return (tag) => {
+    return tags.some(t => t.value === tag.content);
+  }
+}
+
+export const filterClipersByTag = (clipers, tags) => {
+  if (!tags.length) {
+    return clipers;
+  }
+  const check = checkIfHasTag(tags);
+  return clipers.filter(cliperObj => cliperObj.tags.some(tag => check(tag)));
+};
+
 export const formatClipers = (clipers, tags) => {
   let cliperObjs = [];
   clipers.forEach((cliper) => {

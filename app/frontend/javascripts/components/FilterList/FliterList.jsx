@@ -152,14 +152,17 @@ class FilterList extends React.Component {
           {this.renderActiveItems()}
         </div>
         <div className={listWrapperClass} ref={ref => this.modal = ref}>
-          <input
-            value={search}
-            type="text"
-            className="list_items_search"
-            ref={ref => this.search = ref}
-            onKeyDown={this.handleKeyDown}
-            onChange={this.handleSearchChange}
-          />
+          <div className="list_search_wrapper">
+            <input
+              value={search}
+              type="text"
+              className="list_items_search"
+              ref={ref => this.search = ref}
+              onKeyDown={this.handleKeyDown}
+              onChange={this.handleSearchChange}
+            />
+            <i className="fa fa-search" aria-hidden="true"></i>
+          </div>
           <div className="list_items_container">
             {this.renderItems()}
           </div>

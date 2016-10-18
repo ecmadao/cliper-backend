@@ -3,6 +3,10 @@
 }
 
 /* item chosed wrapper */
+.item_chosed_wrapper {
+  width: 400px;
+}
+
 .filter_item {
   cursor: pointer;
 }
@@ -27,15 +31,32 @@
   }
 }
 
-.list_items_search {
+.list_search_wrapper {
   width: 85%;
-  margin: 15px 7.5% 15px 7.5%;
+  margin: 15px 7.5%;
+  border: 1px solid #64B5F6;
+  height: 32px;
+  border-radius: 3px;
+  position: relative;
+  color: #757575;
+
+  & i.fa-search {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #757575;
+  }
+}
+
+.list_items_search {
   outline: none;
   background: transparent;
-  border-radius: 2px;
-  height: 24px;
-  line-height: 24px;
-  border: 1px solid #9E9E9E;
+  border: none;
+  height: 100%;
+  width: 78%;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .list_items_container {
@@ -90,8 +111,8 @@
 
 /* list item */
 .list_item {
-  height: 33px;
-  line-height: 33px;
+  height: 36px;
+  line-height: 36px;
   text-align: left;
   cursor: pointer;
   overflow: hidden;

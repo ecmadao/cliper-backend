@@ -9,9 +9,9 @@ class ListItem extends React.Component {
         className={itemClass}
         onClick={() => {
           if (active) {
-            handleUnchose(item.id);
+            handleUnchose(item.value);
           } else {
-            handleChose(item.id);
+            handleChose(item.value);
           }
         }}
       >

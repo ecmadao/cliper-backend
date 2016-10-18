@@ -46,6 +46,7 @@ class User extends React.Component {
     super(props);
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.getValidateTags = this.getValidateTags.bind(this)
   }
 
   componentDidMount() {
@@ -68,6 +69,23 @@ class User extends React.Component {
     });
   }
 
+  getValidateTags() {
+    const {tags} = this.props;
+    const allTags = [];
+    tags.forEach((tagObj) => {
+      const {tags} = tagObj;
+      tags.forEach((tag) => {
+        if (!allTags.some(t => t.value === tag.content)) {
+          allTags.push({
+            id: tag.objectId,
+            value: tag.content
+          });
+        }
+      });
+    });
+    return allTags;
+  }
+
   handleKeyDown(e) {
     const {getClipersByQuery} = this.props;
     if (e.which === 13) {
@@ -88,7 +106,7 @@ class User extends React.Component {
         <LoadingModal showModal={loading} />
         <CliperComments />
         <div className="cliper_search">
-          <FilterList items={ITEMS}/>
+          <FilterList items={this.getValidateTags()}/>
           <input
             placeholder="search.."
             value={search}
@@ -111,8 +129,8 @@ class User extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {clipers, loading, search} = state;
-  return {clipers, loading, search};
+  const {clipers, loading, search, tags} = state;
+  return {clipers, loading, search, tags};
 }
 
 function mapDispatchToProps(dispatch) {

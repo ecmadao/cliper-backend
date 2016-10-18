@@ -10,7 +10,7 @@ class ActiveItem extends React.Component {
           className="fa fa-times item_unchose"
           aria-hidden="true"
           onClick={() => {
-            handleUnchose(item.id);
+            handleUnchose(item.value);
           }}
         ></i>
       </div>

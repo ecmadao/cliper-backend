@@ -356,14 +356,12 @@ const makeInitialTags = (clipers) => {
   return tagObjs;
 };
 
-const fetchTags = (pageUrl) => {
+const fetchTags = (data) => {
   return new Promise((resolve, reject) => {
     $.ajax({
       url: '/tag/all',
       method: 'get',
-      data: {
-        pageUrl
-      },
+      data,
       success: (data) => {
         if (data.success) {
           resolve(data.data);
@@ -379,7 +377,7 @@ const fetchTags = (pageUrl) => {
 export const getTags = (clipers) => {
   return (dispatch, getState) => {
     let tagObjs = makeInitialTags(clipers);
-    Promise.all(tagObjs.map(tagObj => fetchTags(tagObj.pageUrl))).then((resultList) => {
+    Promise.all(tagObjs.map(tagObj => fetchTags({pageUrl: tagObj.pageUrl}))).then((resultList) => {
       resultList.map((tags, index) => {
         tagObjs[index].tags = tags;
       });

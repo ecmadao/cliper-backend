@@ -8,7 +8,6 @@ const router = koaRouter({
 
 router.post('/new', checkIfLogin(), tag.newTag);
 router.get('/all', checkIfLogin(), tag.getTags);
-router.get('/allTags', checkIfLogin(), tag.allTags);
 router.delete('/:id', checkIfLogin(), tag.deleteTag);
 
 module.exports = router;

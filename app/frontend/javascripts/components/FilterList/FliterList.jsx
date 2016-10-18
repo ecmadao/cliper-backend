@@ -22,6 +22,14 @@ class FilterList extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
+  componentDidUpdate(preProps) {
+    const {items} = this.props;
+    const preItems = preProps.items;
+    if (items !== preItems) {
+      this.setState({items});
+    }
+  }
+
   componentDidMount() {
     if (document.addEventListener) {
       document.addEventListener('mousedown', this.handleOutsideClick, true);
@@ -69,7 +77,7 @@ class FilterList extends React.Component {
   checkIfItemIsActive() {
     const {activeItems} = this.state;
     return (item) => {
-      return activeItems.some(activeItem => item.id === activeItem.id);
+      return activeItems.some(activeItem => item.value === activeItem.value);
     };
   }
 
@@ -82,12 +90,12 @@ class FilterList extends React.Component {
     });
   }
 
-  handleItemChose(id) {
+  handleItemChose(value) {
     const {items, activeItems} = this.state;
-    const targetItem = items.filter(item => item.id === id);
+    const targetItem = items.filter(item => item.value === value);
     if (targetItem && targetItem.length) {
       const newActiveItems = [...activeItems, targetItem[0]];
-      const newItems = this.checkListMode() ? items.filter(item => item.id !== id) : items;
+      const newItems = this.checkListMode() ? items.filter(item => item.value !== value) : items;
       this.setState({
         items: newItems,
         activeItems: newActiveItems
@@ -96,11 +104,11 @@ class FilterList extends React.Component {
     }
   }
 
-  handleItemUnchose(id) {
+  handleItemUnchose(value) {
     const {items, activeItems} = this.state;
-    const targetItem = activeItems.filter(activeItem => activeItem.id === id);
+    const targetItem = activeItems.filter(activeItem => activeItem.value === value);
     if (targetItem && targetItem.length) {
-      const newActiveItems = activeItems.filter(activeItem => activeItem.id !== id);
+      const newActiveItems = activeItems.filter(activeItem => activeItem.value !== value);
       this.setState({
         items: [...items, targetItem[0]],
         activeItems: newActiveItems
@@ -137,7 +145,7 @@ class FilterList extends React.Component {
         <ListItem
           key={index}
           item={item}
-          active={activeItems.some(activeItem => activeItem.id === item.id)}
+          active={activeItems.some(activeItem => activeItem.value === item.value)}
           handleChose={this.handleItemChose}
           handleUnchose={this.handleItemUnchose}
         />

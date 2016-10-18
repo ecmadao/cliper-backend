@@ -40,17 +40,22 @@ class FilterList extends React.Component {
 
   handleKeyDown() {
     const value = this.search.value;
-    this.filterItems(value);
+    if (value) {
+      this.filterItems(value);
+    }
   }
 
   handleSearchChange() {
     const search = this.search.value;
     this.setState({search});
+    if (!search) {
+      this.resetItems();
+    }
   }
 
   filterItems(value) {
     const {items} = this.state;
-    const filteredItems = items.filter(item => item.value === value);
+    const filteredItems = items.filter(item => item.value.match(value));
     this.setState({
       items: filteredItems
     });
@@ -76,10 +81,12 @@ class FilterList extends React.Component {
     const {items, activeItems} = this.state;
     const targetItem = items.filter(item => item.id === id);
     if (targetItem && targetItem.length) {
+      const newActiveItems = [...activeItems, targetItem[0]];
       this.setState({
         items: items.filter(item => item.id !== id),
-        activeItems: [...activeItems, targetItem[0]]
+        activeItems: newActiveItems
       });
+      this.handleActiveItemsChange(newActiveItems);
     }
   }
 
@@ -87,11 +94,18 @@ class FilterList extends React.Component {
     const {items, activeItems} = this.state;
     const targetItem = activeItems.filter(activeItem => activeItem.id === id);
     if (targetItem && targetItem.length) {
+      const newActiveItems = activeItems.filter(activeItem => activeItem.id !== id);
       this.setState({
         items: [...items, targetItem[0]],
-        activeItems: activeItems.filter(activeItem => activeItem.id !== id)
+        activeItems: newActiveItems
       });
+      this.handleActiveItemsChange(newActiveItems);
     }
+  }
+
+  handleActiveItemsChange(activeItems) {
+    const {onChange} = this.props;
+    onChange && onChange(activeItems);
   }
 
   handleModalStatusChange(status) {

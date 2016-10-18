@@ -19,6 +19,7 @@ class FilterList extends React.Component {
     this.handleItemChose = this.handleItemChose.bind(this);
     this.handleItemUnchose = this.handleItemUnchose.bind(this);
     this.handleModalStatusChange = this.handleModalStatusChange.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   componentDidMount() {
@@ -71,12 +72,26 @@ class FilterList extends React.Component {
     });
   }
 
-  handleItemChose() {
-
+  handleItemChose(id) {
+    const {items, activeItems} = this.state;
+    const targetItem = items.filter(item => item.id === id);
+    if (targetItem && targetItem.length) {
+      this.setState({
+        items: items.filter(item => item.id !== id),
+        activeItems: [...activeItems, targetItem[0]]
+      });
+    }
   }
 
-  handleItemUnchose() {
-
+  handleItemUnchose(id) {
+    const {items, activeItems} = this.state;
+    const targetItem = activeItems.filter(activeItem => activeItem.id === id);
+    if (targetItem && targetItem.length) {
+      this.setState({
+        items: [...items, targetItem[0]],
+        activeItems: activeItems.filter(activeItem => activeItem.id !== id)
+      });
+    }
   }
 
   handleModalStatusChange(status) {
@@ -88,7 +103,8 @@ class FilterList extends React.Component {
   handleOutsideClick(e) {
     e = e || window.event;
     const mouseTarget = (typeof e.which !== "undefined") ? e.which : e.button;
-    const isDescendantOfRoot = ReactDOM.findDOMNode(this.modal).contains(e.target);
+    const modal = ReactDOM.findDOMNode(this.modal);
+    const isDescendantOfRoot = modal && modal.contains(e.target);
     if (!isDescendantOfRoot && mouseTarget === 1) {
       this.handleModalStatusChange(false);
     }
@@ -113,7 +129,7 @@ class FilterList extends React.Component {
       return (
         <ActiveItem
           key={index}
-          item={item}
+          item={activeItem}
           handleUnchose={this.handleItemUnchose}
         />
       );
@@ -132,7 +148,7 @@ class FilterList extends React.Component {
             onClick={() => {
               this.handleModalStatusChange(true);
             }}
-          ></i>
+          ></i>&nbsp;
           {this.renderActiveItems()}
         </div>
         <div className={listWrapperClass} ref={ref => this.modal = ref}>

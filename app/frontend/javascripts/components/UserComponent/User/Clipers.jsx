@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import Cliper from './Cliper/index';
+import FilterList from '../../FilterList/index';
 import {
   TABS,
   formatClipers
@@ -11,6 +12,37 @@ import {
   postNewTag,
   handleTagDelete
 } from '../redux/actions';
+
+const ITEMS = [
+  {
+    value: 'javascript',
+    id: 1
+  },
+  {
+    value: 'Django',
+    id: 2
+  },
+  {
+    value: 'postcss',
+    id: 3
+  },
+  {
+    value: 'java',
+    id: 4
+  },
+  {
+    value: 'webpack',
+    id: 5
+  },
+  {
+    value: 'react',
+    id: 6
+  },
+  {
+    value: 'python',
+    id: 7
+  }
+];
 
 class Clipers extends React.Component {
   constructor(props) {
@@ -62,6 +94,7 @@ class Clipers extends React.Component {
         <div className="cliper_tabs">
           {this.renderTabs()}
         </div>
+        <FilterList items={ITEMS}/>
         <div className="clipers_wrapper">
           {this.renderClipers()}
         </div>

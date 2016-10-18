@@ -10,6 +10,7 @@ class ListItem extends React.Component {
           handleChose(item.id);
         }}
       >
+        <i className="fa fa-tag" aria-hidden="true"></i>&nbsp;
         {item.value}
       </div>
     )

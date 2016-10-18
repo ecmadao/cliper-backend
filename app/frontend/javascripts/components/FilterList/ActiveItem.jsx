@@ -5,7 +5,7 @@ class ActiveItem extends React.Component {
     const {item, handleUnchose} = this.props;
     return (
       <div className="active_item">
-        {item.value || item}
+        {item.value || item}&nbsp;
         <i
           className="fa fa-times item_unchose"
           aria-hidden="true"
